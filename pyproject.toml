@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ctpapi"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python library of C++ CTPAPI."
 authors = ["Jedore <jedore@protonmail.com>"]
 license = "MIT"
@@ -19,7 +19,8 @@ classifiers = [
     'Programming Language :: Python :: 3.11',
 ]
 packages = [
-    {include = ""}
+    { include = "ctpapitest" },
+    { include = "ctpapitest1" }
 ]
 
 [tool.poetry.dependencies]
