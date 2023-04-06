@@ -11,7 +11,9 @@ class CustomBuildHook(BuildHookInterface):
         if sys.platform.startswith('linux'):
             pass
         elif sys.platform.startswith('darwin'):
-            pass
+            build_data['artifacts'] = [
+                'ctpapi_667/mac64/*.so',
+            ]
         elif sys.platform.startswith('win'):
             major, minor = sys.version_info[:2]
             assert major == 3

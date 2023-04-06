@@ -62,11 +62,13 @@ exclude_lines = [
 
 [tool.hatch.build]
 include = [
-    "ctpapi_667",
+    "ctpapi_667/*.py",
 ]
 exclude = [
     "ctpapi_667/__about__.py",
 ]
+[tool.hatch.build.sources]
+"ctpapi_667/mac64" = "ctpapi_667"
 [tool.hatch.build.targets.sdist]
 [tool.hatch.build.targets.wheel.hooks.custom]
 path = "hatch_build_hook.py"
