@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ctpapi-667"
-description = 'A package for CTPAPI-6.6.7.'
+description = 'A package for CTPAPI-6.6.7'
 readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
@@ -67,8 +67,12 @@ include = [
 exclude = [
     "ctpapi_667/__about__.py",
 ]
+
 [tool.hatch.build.sources]
 "ctpapi_667/mac64" = "ctpapi_667"
+"ctpapi_667/linux64" = "ctpapi_667"
+
 [tool.hatch.build.targets.sdist]
+
 [tool.hatch.build.targets.wheel.hooks.custom]
 path = "hatch_build_hook.py"
