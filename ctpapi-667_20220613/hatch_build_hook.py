@@ -1,3 +1,4 @@
+import platform
 import sys
 from typing import Any
 
@@ -9,13 +10,20 @@ class CustomBuildHook(BuildHookInterface):
         build_data['pure_python'] = False
         build_data['infer_tag'] = True
         if sys.platform.startswith('linux'):
-            build_data['artifacts'] = ['ctpapi_667/linux64/*.so']
+            build_data['artifacts'].extend([
+                'ctpapi_667/linux64/*.so',
+                'ctpapi_667/thosttraderapi.py',
+            ])
         elif sys.platform.startswith('darwin'):
-            build_data['artifacts'] = ['ctpapi_667/mac64/*.so']
+            if platform.machine() == 'x86_64':
+                build_data['artifacts'].append('ctpapi_667/mac_x86_64/*.so')
+            elif platform.machine() == 'amd64':
+                pass
         elif sys.platform.startswith('win'):
             major, minor = sys.version_info[:2]
             assert major == 3
             assert minor in (7, 8, 9, 10, 11)
+            build_data['artifacts'].append('ctpapi_667/thosttraderapi.py')
             build_data['force_include'].update({
                 'ctpapi_667/win64/thostmduserapi_se.dll': 'ctpapi_667/thostmduserapi_se.dll',
                 'ctpapi_667/win64/thosttraderapi_se.dll': 'ctpapi_667/thosttraderapi_se.dll',

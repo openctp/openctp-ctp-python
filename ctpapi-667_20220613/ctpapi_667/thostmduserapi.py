@@ -6,7 +6,7 @@
 
 # Import the low-level C/C++ module
 if __package__ or "." in __name__:
-    from ctpapi_667.win64.py311 import _thostmduserapi
+    from . import _thostmduserapi
 else:
     import _thostmduserapi
 

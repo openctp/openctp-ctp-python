@@ -62,14 +62,12 @@ exclude_lines = [
 
 [tool.hatch.build]
 include = [
-    "ctpapi_667/*.py",
-]
-exclude = [
-    "ctpapi_667/__about__.py",
+    "ctpapi_667/__init__.py",
+    "ctpapi_667/thostmduserapi.py",
 ]
 
 [tool.hatch.build.sources]
-"ctpapi_667/mac64" = "ctpapi_667"
+"ctpapi_667/mac_x86_64" = "ctpapi_667"
 "ctpapi_667/linux64" = "ctpapi_667"
 
 [tool.hatch.build.targets.sdist]

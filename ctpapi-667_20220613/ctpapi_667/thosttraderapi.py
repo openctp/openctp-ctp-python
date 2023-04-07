@@ -7,7 +7,7 @@
 from sys import version_info as _swig_python_version_info
 # Import the low-level C/C++ module
 if __package__ or "." in __name__:
-    from ctpapi_667 import _thosttraderapi
+    from . import _thosttraderapi
 else:
     import _thosttraderapi
 
