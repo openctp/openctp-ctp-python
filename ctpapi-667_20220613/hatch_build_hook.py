@@ -11,7 +11,7 @@ class CustomBuildHook(BuildHookInterface):
         build_data['infer_tag'] = True
         if sys.platform.startswith('linux'):
             build_data['artifacts'].extend([
-                'ctpapi_667/linux64/*.so',
+                'ctpapi_667/linux-x86_64/*.so',
                 'ctpapi_667/thosttraderapi.py',
             ])
         elif sys.platform.startswith('darwin'):
