@@ -16,7 +16,7 @@ class CustomBuildHook(BuildHookInterface):
             ])
         elif sys.platform.startswith('darwin'):
             if platform.machine() == 'x86_64':
-                build_data['artifacts'].append('ctpapi_667/mac_x86_64/*.so')
+                build_data['artifacts'].append('ctpapi_667/mac-x86_64/*.so')
             elif platform.machine() == 'amd64':
                 pass
         elif sys.platform.startswith('win'):
