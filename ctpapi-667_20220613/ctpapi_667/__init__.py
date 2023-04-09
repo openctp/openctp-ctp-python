@@ -4,16 +4,11 @@
 import os
 import sys
 
-path = os.getcwd()
-
-is_linux = sys.platform.startswith('linux')
-if is_linux:
+if sys.platform.startswith('linux'):
+    path = os.getcwd()
     os.chdir(os.path.dirname(__file__))
 
-from . import thostmduserapi as mdapi
-from . import thosttraderapi as tdapi
+    from . import thostmduserapi
+    from . import thosttraderapi
 
-if is_linux:
     os.chdir(path)
-
-__all__ = ['mdapi', 'tdapi']
