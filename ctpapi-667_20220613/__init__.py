@@ -1,1 +1,0 @@
-from ctpapi_667 import thosttraderapi as trapi

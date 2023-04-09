@@ -27,6 +27,6 @@ class CustomBuildHook(BuildHookInterface):
             build_data['force_include'].update({
                 'ctpapi_667/win64/thostmduserapi_se.dll': 'ctpapi_667/thostmduserapi_se.dll',
                 'ctpapi_667/win64/thosttraderapi_se.dll': 'ctpapi_667/thosttraderapi_se.dll',
-                f'ctpapi_667/win64/py3{minor}/_thostmduserapi.pyd': 'ctpapi_667/thostmduserapi.pyd',
-                f'ctpapi_667/win64/py3{minor}/_thosttraderapi.pyd': 'ctpapi_667/thosttraderapi.pyd',
+                f'ctpapi_667/win64/py3{minor}/_thostmduserapi.pyd': 'ctpapi_667/_thostmduserapi.pyd',
+                f'ctpapi_667/win64/py3{minor}/_thosttraderapi.pyd': 'ctpapi_667/_thosttraderapi.pyd',
             })
