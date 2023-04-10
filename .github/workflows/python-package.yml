@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Set up CTPAPI ${{ matrix.ctpapi-version }}
-        run: cd ${{ matrix.ctpapi-version }}
+        run: cd ctpapi-${{ matrix.ctpapi-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
