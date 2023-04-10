@@ -24,9 +24,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
-          pwd
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
@@ -34,4 +32,3 @@ jobs:
         run: |
           pwd
           hatch build
-          cd ..
