@@ -31,8 +31,9 @@ jobs:
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
           hatch build
-      - name: Test Prepare
+      - name: Test
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
+          cd tests
           python tests/pre_test.py
           python tests/test_mdapi.py
