@@ -23,17 +23,14 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Set up CTPAPI ${{ matrix.ctpapi-version }}
-        run: |
-          pwd
-          cd ctpapi-${{ matrix.ctpapi-version }}
-          pwd
       - name: Install dependencies
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
           pwd
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
           pwd
           hatch build
