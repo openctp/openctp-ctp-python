@@ -1,12 +1,12 @@
 import platform
 import sys
-from typing import Any
+from typing import Any, Dict
 
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 
 class CustomBuildHook(BuildHookInterface):
-    def initialize(self, version: str, build_data: dict[str, Any]) -> None:
+    def initialize(self, version: str, build_data: Dict[str, Any]) -> None:
         build_data['pure_python'] = False
         build_data['infer_tag'] = True
         if sys.platform.startswith('linux'):
