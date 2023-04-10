@@ -65,8 +65,8 @@ include = [
 ]
 
 [tool.hatch.build.sources]
-"ctpapi_661/mac_x64" = "ctpapi"
-"ctpapi_661/linux_x64" = "ctpapi"
+"ctpapi_661/mac_x64" = "ctpapi_661"
+"ctpapi_661/linux_x64" = "ctpapi_661"
 
 [tool.hatch.build.targets.sdist]
 
