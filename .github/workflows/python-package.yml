@@ -30,7 +30,9 @@ jobs:
       - name: Building Package
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
-          pwd
           hatch build
+      - name: Test Prepare
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        run: |
           python tests/pre_test.py
           python tests/test_mdapi.py
