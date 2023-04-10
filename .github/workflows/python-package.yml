@@ -10,13 +10,13 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-linux:
 
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.7", "3.8"]
+        python-version: [ "3.11" ]
 
     steps:
       - uses: actions/checkout@v3
