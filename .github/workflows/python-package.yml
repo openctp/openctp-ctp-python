@@ -35,5 +35,5 @@ jobs:
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
           cd tests
-          python tests/pre_test.py
-          python tests/test_mdapi.py
+          python pre_test.py
+          python test_mdapi.py
