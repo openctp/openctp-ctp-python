@@ -32,7 +32,6 @@ jobs:
         run: |
           hatch build
       - name: Modify Ubuntu Locale
-        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get install -y locales
           sudo locale-gen zh_CN.GB18030
