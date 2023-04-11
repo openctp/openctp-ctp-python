@@ -9,7 +9,7 @@ published in openctp@github: https://github.com/krenx1983/openctp/tree/master/ct
 
 import sys
 
-from ctpapi_667 import thostmduserapi as api
+from ctpapi_667 import mdapi as api
 
 
 class CMdSpiImpl(api.CThostFtdcMdSpi):

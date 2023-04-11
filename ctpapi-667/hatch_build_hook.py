@@ -11,13 +11,15 @@ class CustomBuildHook(BuildHookInterface):
         build_data['infer_tag'] = True
 
         if sys.platform.startswith('linux'):
-            build_data['artifacts'].extend([
-                '667/linux_x64/*.so',
-            ])
+            build_data['force_include'].update({
+                '667/linux_x64': 'ctpapi_667',
+            })
 
         elif sys.platform.startswith('darwin'):
             if platform.machine() == 'x86_64':
-                build_data['artifacts'].append('667/mac_x64/*.so')
+                build_data['force_include'].update({
+                    '667/mac_x64': 'ctpapi_667',
+                })
             elif platform.machine() == 'amd64':
                 pass
 
