@@ -34,7 +34,9 @@ jobs:
       - name: Windows - Install Package
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         if: matrix.os == 'windows-latest'
-        run: for %%i in (dist\*.whl) do pip install %%i
+        #run: for %%i in (dist\*.whl) do pip install %%i
+        run: pip install dist/*.whl
+        shell: bash
       - name: Ubuntu | Mac - Install Package
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         if: matrix.os != 'windows-latest'
