@@ -10,11 +10,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-unix:
-    runs-on: ${{ matrix.os }}
+
+  build-linux:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
         ctpapi-version: [ "6315", "6319", "651", "661", "667", "669" ]
 
     steps:
@@ -44,6 +44,36 @@ jobs:
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
           pytest tests/test_mdapi.py
+
+  build-macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        ctpapi-version: [ "667", "669" ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Building Package
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        run: |
+          hatch build
+      - name: Install Package
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        run: pip install dist/*.whl
+        shell: bash
+      - name: Test
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        run: |
+          pytest tests/test_mdapi.py
+
 
   build-windows:
     runs-on: windows-latest
