@@ -10,20 +10,47 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-unix:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
+        ctpapi-version: [ "6315", "6319", "651", "661", "667", "669" ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Building Package
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        run: |
+          hatch build
+      - name: Modify Ubuntu Locale
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get install -y locales
+          sudo locale-gen zh_CN.GB18030
+      - name: Install Package
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        run: pip install dist/*.whl
+        shell: bash
+      - name: Test
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        run: |
+          pytest tests/test_mdapi.py
+
+  build-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
         python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
         ctpapi-version: [ "6315", "6319", "651", "661", "667", "669" ]
-        exclude:
-          - os: ubuntu-latest
-            python-version: [ "3.8", "3.9", "3.10", "3.11" ]
-            ctpapi-version: [ "6315", "6319", "651", "661", "669" ]
-          - os: macos-latest
-            python-version: [ "3.8", "3.9", "3.10", "3.11" ]
-            ctpapi-version: [ "6315", "6319", "651", "661", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -39,11 +66,6 @@ jobs:
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
           hatch build
-      - name: Ubuntu modify locale
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get install -y locales
-          sudo locale-gen zh_CN.GB18030
       - name: Install Package
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: pip install dist/*.whl
