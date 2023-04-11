@@ -32,9 +32,11 @@ jobs:
         run: |
           hatch build
       - name: Windows - Install Package
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
         if: matrix.os == 'windows-latest'
         run: for %i in (dist\*.whl) do pip install %i
       - name: Ubuntu | Mac - Install Package
+        working-directory: ctpapi-${{ matrix.ctpapi-version }}
         if: matrix.os != 'windows-latest'
         run: pip install dist/*.whl
       - name: Test
