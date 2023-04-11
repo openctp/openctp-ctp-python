@@ -30,7 +30,7 @@ dynamic = ["version"]
 GitHub = "https://github.com/Jedore/ctpapi-python"
 
 [tool.hatch.version]
-path = "ctpapi_667/__about__.py"
+path = "667/__about__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
@@ -38,7 +38,7 @@ dependencies = [
     "pytest-cov",
 ]
 [tool.hatch.envs.default.scripts]
-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=ctpapi_667 --cov=tests {args}"
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=667 --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
 
 [[tool.hatch.envs.test.matrix]]
@@ -48,7 +48,7 @@ python = ["37", "38", "39", "310", "311"]
 branch = true
 parallel = true
 omit = [
-    "ctpapi_667/__about__.py",
+    "667/__about__.py",
 ]
 
 [tool.coverage.report]
@@ -59,14 +59,15 @@ exclude_lines = [
 ]
 
 [tool.hatch.build]
-include = [
-    "ctpapi_667/__init__.py",
-    "ctpapi_667/thostmduserapi.py",
+exclude = [
+    "hatch_build_hook.py",
+    "tests",
 ]
 
 [tool.hatch.build.sources]
-"ctpapi_667/mac_x64" = "ctpapi_667"
-"ctpapi_667/linux_x64" = "ctpapi_667"
+"667" = "ctpapi_667"
+"667/mac_x64" = "ctpapi_667"
+"667/linux_x64" = "ctpapi_667"
 
 [tool.hatch.build.targets.sdist]
 

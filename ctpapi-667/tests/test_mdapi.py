@@ -1,6 +1,6 @@
 from queue import Queue
 
-from . import thostmduserapi as mdapi
+from ctpapi_667 import mdapi
 
 Q_CONNECT = Queue(maxsize=1)
 Q_LOGIN = Queue(maxsize=1)
@@ -41,7 +41,12 @@ def test_mdapi():
     md_api.RegisterSpi(md_spi)
     md_api.Init()
 
-    if not Q_CONNECT.get(timeout=TIMEOUT):
+    try:
+        Q_CONNECT.get(timeout=TIMEOUT)
+    except:
         assert False
-    if not Q_LOGIN.get(timeout=TIMEOUT):
+    try:
+        if not Q_LOGIN.get(timeout=TIMEOUT):
+            assert False
+    except:
         assert False
