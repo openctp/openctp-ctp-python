@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest ]
+        os: [ windows-latest ]
         python-version: [ "3.7" ]
         ctpapi-version: [ "667" ]
     steps:
@@ -34,7 +34,7 @@ jobs:
       - name: Windows - Install Package
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         if: matrix.os == 'windows-latest'
-        run: for %i in (dist\*.whl) do pip install %i
+        run: for %%i in (dist\*.whl) do pip install %%i
       - name: Ubuntu | Mac - Install Package
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         if: matrix.os != 'windows-latest'
