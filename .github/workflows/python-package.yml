@@ -31,8 +31,8 @@ jobs:
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
           hatch build
+          pip install dist/*.whl
       - name: Test
         working-directory: ctpapi-${{ matrix.ctpapi-version }}
         run: |
-          cd tests
-          pytest test_mdapi.py
+          pytest tests/test_mdapi.py
