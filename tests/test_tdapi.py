@@ -28,7 +28,7 @@ def test_mdapi(ctp):
 
         def OnFrontConnected(self):
             Q_CONNECT.put(True, timeout=TIMEOUT)
-            req = tdapi.CThostFtdcReqAuthenticateField()
+            req = api.CThostFtdcReqAuthenticateField()
             req.BrokerID = '9999'
             req.UserID = USER
             req.AppID = 'simnow_client_test'
