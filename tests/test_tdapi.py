@@ -1,10 +1,3 @@
-"""
-written by krenx on 2023-1-10.
-published in openctp@github: https://github.com/krenx1983/openctp/tree/master/ctpapi-python
-"""
-
-import sys
-
 import importlib
 from queue import Queue
 
@@ -14,6 +7,8 @@ Q_CONNECT = Queue(maxsize=1)
 Q_AUTH = Queue(maxsize=1)
 
 TIMEOUT = 5  # seconds
+
+USER = '209025'
 
 
 @pytest.fixture(scope='session')
@@ -34,10 +29,10 @@ def test_mdapi(ctp):
         def OnFrontConnected(self):
             Q_CONNECT.put(True, timeout=TIMEOUT)
             req = tdapi.CThostFtdcReqAuthenticateField()
-            req.BrokerID = brokerid
-            req.UserID = user
-            req.AppID = appid
-            req.AuthCode = authcode
+            req.BrokerID = '9999'
+            req.UserID = USER
+            req.AppID = 'simnow_client_test'
+            req.AuthCode = '0000000000000000'
             self.tdapi.ReqAuthenticate(req, 0)
 
         def OnRspAuthenticate(self, pRspAuthenticateField: api.CThostFtdcRspAuthenticateField,
@@ -59,20 +54,12 @@ def test_mdapi(ctp):
     error = None
     for td_front in td_fronts:
         try:
-            user = '209025'
-
-            brokerid = '9999'
-            authcode = '0000000000000000'
-            appid = 'simnow_client_test'
-
-            tdapi = api.CThostFtdcTraderApi.CreateFtdcTraderApi(user)
+            tdapi = api.CThostFtdcTraderApi.CreateFtdcTraderApi(USER)
 
             assert ctp_version in tdapi.GetApiVersion(), 'GetApiVersion Failed!'
 
             tdspi = CTdSpiImpl(tdapi)
             tdapi.RegisterSpi(tdspi)
-            tdapi.SubscribePrivateTopic(api.THOST_TERT_QUICK)
-            tdapi.SubscribePublicTopic(api.THOST_TERT_QUICK)
             tdapi.RegisterFront(td_front)
             tdapi.Init()
 
