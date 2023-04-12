@@ -1,6 +1,6 @@
 from queue import Queue
 
-from ctpapi_651 import mdapi
+from openctp_ctp_651 import thostmduserapi as mdapi
 
 Q_CONNECT = Queue(maxsize=1)
 Q_LOGIN = Queue(maxsize=1)
@@ -32,7 +32,7 @@ class CMdSpiImpl(mdapi.CThostFtdcMdSpi):
 
 
 def test_mdapi():
-    md_front = 'tcp://180.168.146.187:10131'
+    md_front = 'tcp://180.168.146.187:10211'
 
     md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi()
     print("ApiVersion: ", md_api.GetApiVersion())
@@ -50,3 +50,6 @@ def test_mdapi():
             assert False
     except:
         assert False
+
+if __name__ == '__main__':
+    test_mdapi()

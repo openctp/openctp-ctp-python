@@ -3,12 +3,12 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ctpapi-651"
+name = "openctp-ctp-651"
 description = 'A package for CTPAPI-6.5.1'
 readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
-keywords = ["ctpapi"]
+keywords = ["openctp", "ctp", "ctpapi"]
 authors = [
     { name = "Jedore", email = "jedore@protonmail.com" },
 ]
@@ -27,7 +27,7 @@ dependencies = []
 dynamic = ["version"]
 
 [project.urls]
-GitHub = "https://github.com/Jedore/ctpapi-python"
+GitHub = "https://github.com/Jedore/openctp-ctp-python"
 
 [tool.hatch.version]
 path = "651/__about__.py"
@@ -65,7 +65,7 @@ exclude = [
 ]
 
 [tool.hatch.build.sources]
-"651" = "ctpapi_651"
+"651" = "openctp_ctp_651"
 
 [tool.hatch.build.targets.sdist]
 

@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ctpapi-version: [ "6315", "6319", "651", "661", "667", "669" ]
+        ctp-version: [ "651" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -28,18 +28,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
       - name: Modify Ubuntu Locale
         run: |
           sudo apt-get install -y locales
           sudo locale-gen zh_CN.GB18030
       - name: Install Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: pip install dist/*.whl
         shell: bash
       - name: Test
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: |
           pytest tests/test_mdapi.py
 
@@ -47,7 +47,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        ctpapi-version: [ "667", "669" ]
+        ctp-version: [ "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -60,14 +60,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
       - name: Install Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: pip install dist/*.whl
         shell: bash
       - name: Test
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: |
           pytest tests/test_mdapi.py
 
@@ -76,8 +76,8 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
-        ctpapi-version: [ "6315", "6319", "651", "661", "667", "669" ]
+        python-version: [ "3.7" ]
+        ctp-version: [ "651" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -90,13 +90,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
       - name: Install Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: pip install dist/*.whl
         shell: bash
       - name: Test
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: |
           pytest tests/test_mdapi.py

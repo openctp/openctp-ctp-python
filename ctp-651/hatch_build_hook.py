@@ -1,3 +1,4 @@
+import os.path
 import platform
 import sys
 from typing import Any, Dict
@@ -10,15 +11,16 @@ class CustomBuildHook(BuildHookInterface):
         build_data['pure_python'] = False
         build_data['infer_tag'] = True
 
+        base_dir = '651'
         if sys.platform.startswith('linux'):
             build_data['force_include'].update({
-                '651/linux_x64': 'ctpapi_651',
+                os.path.join(base_dir, 'linux_x64'): base_dir,
             })
 
         elif sys.platform.startswith('darwin'):
             if platform.machine() == 'x86_64':
                 build_data['force_include'].update({
-                    '651/mac_x64': 'ctpapi_651',
+                    os.path.join(base_dir, 'mac_x64'): base_dir,
                 })
             elif platform.machine() == 'amd64':
                 pass
@@ -27,9 +29,11 @@ class CustomBuildHook(BuildHookInterface):
             major, minor = sys.version_info[:2]
             assert major == 3
             assert minor in (7, 8, 9, 10, 11)
+            win_dir = os.path.join(base_dir, 'win_x64')
+            md = 'thostmduserapi_se.dll'
+            td = 'thosttraderapi_se.dll'
             build_data['force_include'].update({
-                '651/win_x64/thostmduserapi_se.dll': 'ctpapi_651/thostmduserapi_se.dll',
-                '651/win_x64/thosttraderapi_se.dll': 'ctpapi_651/thosttraderapi_se.dll',
-                f'651/win_x64/py3{minor}/_thostmduserapi.pyd': 'ctpapi_651/_thostmduserapi.pyd',
-                f'651/win_x64/py3{minor}/_thosttraderapi.pyd': 'ctpapi_651/_thosttraderapi.pyd',
+                os.path.join(win_dir, md): os.path.join(base_dir, md),
+                os.path.join(win_dir, td): os.path.join(base_dir, td),
+                os.path.join(win_dir, f'py3{minor}'): base_dir,
             })
