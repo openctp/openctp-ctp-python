@@ -1,6 +1,6 @@
 from queue import Queue
 
-from openctp_ctp_651 import thostmduserapi as mdapi
+from openctp_ctp_651 import mdapi
 
 Q_CONNECT = Queue(maxsize=1)
 Q_LOGIN = Queue(maxsize=1)
@@ -50,6 +50,7 @@ def test_mdapi():
             assert False
     except:
         assert False
+
 
 if __name__ == '__main__':
     test_mdapi()
