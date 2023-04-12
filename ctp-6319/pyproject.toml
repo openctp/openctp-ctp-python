@@ -27,7 +27,9 @@ dependencies = []
 dynamic = ["version"]
 
 [project.urls]
-GitHub = "https://github.com/Jedore/openctp-ctp-python"
+Source = "https://github.com/Jedore/openctp-ctp-python"
+Issues = "https://github.com/Jedore/openctp-ctp-python/issues"
+Openctp = "https://github.com/openctp/openctp"
 
 [tool.hatch.version]
 path = "6319/__about__.py"
