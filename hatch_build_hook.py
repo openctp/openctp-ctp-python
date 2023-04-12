@@ -1,17 +1,19 @@
-import os.path
+import os
 import platform
 import sys
-from typing import Any, Dict
+from typing import Dict, Any
 
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 
 class CustomBuildHook(BuildHookInterface):
     def initialize(self, version: str, build_data: Dict[str, Any]) -> None:
+
+        base_dir = os.path.basename(os.getcwd()).split('-')[1]
+
         build_data['pure_python'] = False
         build_data['infer_tag'] = True
 
-        base_dir = '6319'
         if sys.platform.startswith('linux'):
             build_data['force_include'].update({
                 os.path.join(base_dir, 'linux_x64'): base_dir,
