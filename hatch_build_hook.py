@@ -10,9 +10,13 @@ class CustomBuildHook(BuildHookInterface):
     def initialize(self, version: str, build_data: Dict[str, Any]) -> None:
 
         base_dir = os.path.basename(os.getcwd()).split('-')[1]
+        parent_dir = os.path.dirname(os.getcwd())
 
         build_data['pure_python'] = False
         build_data['infer_tag'] = True
+        build_data['force_include'].update({
+            os.path.join(parent_dir, 'init.py'): os.path.join(base_dir, '__init__.py'),
+        })
 
         if sys.platform.startswith('linux'):
             build_data['force_include'].update({
