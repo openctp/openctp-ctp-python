@@ -41,7 +41,7 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest --ctp ${{ matrix.ctp-version }} tests/test_mdapi.py
+          pytest --ctp ${{ matrix.ctp-version }} tests
 
 #  build-macos:
 #    runs-on: macos-latest
@@ -68,7 +68,7 @@ jobs:
 #        shell: bash
 #      - name: Test
 #        run: |
-#          pytest --ctp ${{ matrix.ctp-version }} tests/test_mdapi.py
+#          pytest --ctp ${{ matrix.ctp-version }} tests
 #
 #
 #  build-windows:
@@ -97,5 +97,5 @@ jobs:
 #        shell: bash
 #      - name: Test
 #        run: |
-#          pytest --ctp ${{ matrix.ctp-version }} tests/test_mdapi.py
+#          pytest --ctp ${{ matrix.ctp-version }} tests
 #

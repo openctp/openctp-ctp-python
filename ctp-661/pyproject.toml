@@ -70,4 +70,4 @@ exclude = [
 [tool.hatch.build.targets.sdist]
 
 [tool.hatch.build.targets.wheel.hooks.custom]
-path = "hatch_build_hook.py"
+path = "../hatch_build_hook.py"
