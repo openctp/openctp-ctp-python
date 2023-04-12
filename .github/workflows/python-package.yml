@@ -67,7 +67,7 @@ jobs:
 #        shell: bash
 #      - name: Test
 #        run: |
-#          pytest --ctp ${{ matrix.ctp-version }} tests
+#          pytest --ctp ${{ matrix.ctp-version }} tests/test_mdapi.py
 #
 #
 #  build-windows:

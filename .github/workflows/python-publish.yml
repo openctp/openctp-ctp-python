@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ctpapi-version: [ "6315", "6319", "651", "661", "667", "669" ]
+        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -34,7 +34,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
       - name: Publish Package
         uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
@@ -47,7 +47,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        ctpapi-version: [ "667", "669" ]
+        ctp-version: [ "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -60,7 +60,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
 
 
@@ -69,7 +69,7 @@ jobs:
     strategy:
       matrix:
         python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
-        ctpapi-version: [ "6315", "6319", "651", "661", "667", "669" ]
+        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -82,7 +82,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctpapi-${{ matrix.ctpapi-version }}
+        working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
       - name: Publish a Python distribution to Test PyPI
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')

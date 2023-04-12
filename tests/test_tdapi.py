@@ -23,10 +23,10 @@ def ctp(pytestconfig):
 
 def test_mdapi(ctp):
     ctp_pkg = f'openctp_ctp_{ctp}'
-    tdapi = getattr(importlib.import_module(ctp_pkg), 'tdapi')
+    api = getattr(importlib.import_module(ctp_pkg), 'tdapi')
     ctp_version = f'{ctp[0]}.{ctp[1]}.{ctp[2:]}'
 
-    class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
+    class CTdSpiImpl(api.CThostFtdcTraderSpi):
         def __init__(self, tdapi):
             super().__init__()
             self.tdapi = tdapi
@@ -40,8 +40,8 @@ def test_mdapi(ctp):
             req.AuthCode = authcode
             self.tdapi.ReqAuthenticate(req, 0)
 
-        def OnRspAuthenticate(self, pRspAuthenticateField: tdapi.CThostFtdcRspAuthenticateField,
-                              pRspInfo: tdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        def OnRspAuthenticate(self, pRspAuthenticateField: api.CThostFtdcRspAuthenticateField,
+                              pRspInfo: api.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
             if pRspInfo is None or pRspInfo.ErrorID == 0:
                 # success
                 Q_AUTH.put(True, timeout=TIMEOUT)
@@ -65,14 +65,14 @@ def test_mdapi(ctp):
             authcode = '0000000000000000'
             appid = 'simnow_client_test'
 
-            tdapi = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi(user)
+            tdapi = api.CThostFtdcTraderApi.CreateFtdcTraderApi(user)
 
             assert ctp_version in tdapi.GetApiVersion(), 'GetApiVersion Failed!'
 
             tdspi = CTdSpiImpl(tdapi)
             tdapi.RegisterSpi(tdspi)
-            tdapi.SubscribePrivateTopic(tdapi.THOST_TERT_QUICK)
-            tdapi.SubscribePublicTopic(tdapi.THOST_TERT_QUICK)
+            tdapi.SubscribePrivateTopic(api.THOST_TERT_QUICK)
+            tdapi.SubscribePublicTopic(api.THOST_TERT_QUICK)
             tdapi.RegisterFront(td_front)
             tdapi.Init()
 

@@ -16,21 +16,21 @@ def ctp(pytestconfig):
 
 def test_mdapi(ctp):
     ctp_pkg = f'openctp_ctp_{ctp}'
-    mdapi = getattr(importlib.import_module(ctp_pkg), 'mdapi')
+    api = getattr(importlib.import_module(ctp_pkg), 'mdapi')
     ctp_version = f'{ctp[0]}.{ctp[1]}.{ctp[2:]}'
 
-    class CMdSpiImpl(mdapi.CThostFtdcMdSpi):
+    class CMdSpiImpl(api.CThostFtdcMdSpi):
         def __init__(self, md_api):
             super().__init__()
             self.md_api = md_api
 
         def OnFrontConnected(self):
             Q_CONNECT.put(True, timeout=TIMEOUT)
-            req = mdapi.CThostFtdcReqUserLoginField()
+            req = api.CThostFtdcReqUserLoginField()
             self.md_api.ReqUserLogin(req, 0)
 
-        def OnRspUserLogin(self, pRspUserLogin: mdapi.CThostFtdcRspUserLoginField,
-                           pRspInfo: mdapi.CThostFtdcRspInfoField, nRequestID: int,
+        def OnRspUserLogin(self, pRspUserLogin: api.CThostFtdcRspUserLoginField,
+                           pRspInfo: api.CThostFtdcRspInfoField, nRequestID: int,
                            bIsLast: bool):
             if pRspInfo is None or pRspInfo.ErrorID == 0:
                 # success
@@ -49,14 +49,14 @@ def test_mdapi(ctp):
     error = None
     for md_front in md_fronts:
         try:
-            md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi()
+            mdapi = api.CThostFtdcMdApi.CreateFtdcMdApi()
 
-            assert ctp_version in md_api.GetApiVersion(), 'GetApiVersion Failed!'
+            assert ctp_version in mdapi.GetApiVersion(), 'GetApiVersion Failed!'
 
-            md_spi = CMdSpiImpl(md_api)
-            md_api.RegisterFront(md_front)
-            md_api.RegisterSpi(md_spi)
-            md_api.Init()
+            mdspi = CMdSpiImpl(mdapi)
+            mdapi.RegisterFront(md_front)
+            mdapi.RegisterSpi(mdspi)
+            mdapi.Init()
 
             try:
                 Q_CONNECT.get(timeout=TIMEOUT)
