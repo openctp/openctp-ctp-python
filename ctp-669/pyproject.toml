@@ -61,6 +61,7 @@ exclude_lines = [
 ]
 
 [tool.hatch.build]
+directory = "../dist/"
 exclude = [
     "hatch_build_hook.py",
     "tests",
