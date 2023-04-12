@@ -33,7 +33,6 @@ jobs:
         working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
       - name: Publish a Python distribution to Test PyPI
-        working-directory: ctp-${{ matrix.ctp-version }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
