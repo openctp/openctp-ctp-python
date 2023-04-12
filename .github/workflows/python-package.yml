@@ -15,8 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-#        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
-        ctp-version: [ "6319" ]
+        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
