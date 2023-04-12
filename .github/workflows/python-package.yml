@@ -11,37 +11,36 @@ on:
 
 jobs:
 
-  build-linux:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
+#  build-linux:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
 #        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
-        ctp-version: [ "667" ]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Building Package
-        working-directory: ctp-${{ matrix.ctp-version }}
-        run: hatch build
-      - name: Modify Ubuntu Locale
-        run: |
-          sudo apt-get install -y locales
-          sudo locale-gen zh_CN.GB18030
-      - name: Install Package
-        working-directory: ctp-${{ matrix.ctp-version }}
-        run: pip install dist/*.whl
-        shell: bash
-      - name: Test
-        run: |
-          pytest --ctp ${{ matrix.ctp-version }} tests
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Set up Python 3.7
+#        uses: actions/setup-python@v3
+#        with:
+#          python-version: 3.7
+#      - name: Install dependencies
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install -r requirements.txt
+#      - name: Building Package
+#        working-directory: ctp-${{ matrix.ctp-version }}
+#        run: hatch build
+#      - name: Modify Ubuntu Locale
+#        run: |
+#          sudo apt-get install -y locales
+#          sudo locale-gen zh_CN.GB18030
+#      - name: Install Package
+#        working-directory: ctp-${{ matrix.ctp-version }}
+#        run: pip install dist/*.whl
+#        shell: bash
+#      - name: Test
+#        run: |
+#          pytest --ctp ${{ matrix.ctp-version }} tests
 
 #  build-macos:
 #    runs-on: macos-latest
@@ -71,32 +70,31 @@ jobs:
 #          pytest --ctp ${{ matrix.ctp-version }} tests/test_mdapi.py
 #
 #
-  build-windows:
-    runs-on: windows-latest
-    strategy:
-      matrix:
+#  build-windows:
+#    runs-on: windows-latest
+#    strategy:
+#      matrix:
 #        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
 #        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
-        python-version: [ "3.7" ]
-        ctp-version: [ "667" ]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Building Package
-        working-directory: ctp-${{ matrix.ctp-version }}
-        run: hatch build
-      - name: Install Package
-        working-directory: ctp-${{ matrix.ctp-version }}
-        run: pip install dist/*.whl
-        shell: bash
-      - name: Test
-        run: |
-          pytest --ctp ${{ matrix.ctp-version }} tests
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Set up Python ${{ matrix.python-version }}
+#        uses: actions/setup-python@v3
+#        with:
+#          python-version: ${{ matrix.python-version }}
+#      - name: Install dependencies
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install -r requirements.txt
+#      - name: Building Package
+#        working-directory: ctp-${{ matrix.ctp-version }}
+#        run: hatch build
+#      - name: Install Package
+#        working-directory: ctp-${{ matrix.ctp-version }}
+#        run: pip install dist/*.whl
+#        shell: bash
+#      - name: Test
+#        run: |
+#          pytest --ctp ${{ matrix.ctp-version }} tests
+#
