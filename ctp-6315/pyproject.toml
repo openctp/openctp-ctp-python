@@ -63,7 +63,6 @@ exclude = [
     "hatch_build_hook.py",
     "tests",
 ]
-directory = "../dist/"
 
 [tool.hatch.build.sources]
 "6315" = "openctp_ctp_6315"

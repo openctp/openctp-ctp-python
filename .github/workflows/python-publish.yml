@@ -12,7 +12,7 @@ on: [ workflow_dispatch ]
 
 jobs:
 
-  deploy-linux:
+  build-linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,13 +31,13 @@ jobs:
       - name: Building Package
         working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
-      - name: Publish a Python distribution to Test PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Store Package
+        uses: actions/upload-artifact@v2
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
+          name: python-package-distribution
+          path: dist
 
-  deploy-macos:
+  build-macos:
     runs-on: macos-latest
     strategy:
       matrix:
@@ -56,13 +56,13 @@ jobs:
       - name: Building Package
         working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
-      - name: Publish a Python distribution to Test PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Store Package
+        uses: actions/upload-artifact@v2
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
+          name: python-package-distribution
+          path: dist
 
-  deploy-windows:
+  build-windows:
     runs-on: windows-latest
     strategy:
       matrix:
@@ -82,6 +82,32 @@ jobs:
       - name: Building Package
         working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build
+      - name: Store Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-package-distribution
+          path: dist
+
+  publish-dist:
+    needs:
+      - build-linux
+      - build-windows
+      - build-macos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.10
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r hatch
+      - name: Download Package
+        uses: actions/download-artifact@v2
+        with:
+          name: python-package-distribution
+          path: dist/
       - name: Publish a Python distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
