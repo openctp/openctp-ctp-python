@@ -38,7 +38,7 @@ jobs:
 
   test-windows:
     needs:
-      - test-macos
+      - test-linux
     runs-on: windows-latest
     strategy:
       matrix:
