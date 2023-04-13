@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "openctp-ctp"
 description = 'A package for CTPAPI'
-readme = "PYPI_README.md"
+readme = "../PYPI_README.md"
 requires-python = ">=3.7"
 license = "MIT"
 keywords = ["openctp", "ctp", "ctpapi", "trading", "investment"]

@@ -33,6 +33,7 @@
 ## 安装:hammer_and_wrench:
 
 ```shell
+# pip install openctp-ctp==<ctpapi version>
 pip install openctp-ctp==6.3.15
 pip install openctp-ctp==6.6.7
 ```
