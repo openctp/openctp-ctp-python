@@ -99,4 +99,6 @@ graph TD;
 ## 更多信息:page_facing_up:
 
 - [openctp](https://github.com/openctp/openctp)
-- QQ交流群: 127235179
+- QQ交流群 
+
+    <img src="https://user-images.githubusercontent.com/17944025/231727684-fb62f5f9-71d8-448f-9e35-255639756bb2.png" width="200px">
