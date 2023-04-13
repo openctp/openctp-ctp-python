@@ -1,8 +1,7 @@
 # openctp-ctp-6315
 
-[![PyPI - Version](https://img.shields.io/pypi/v/oepnctp-ctp-6315.svg)](https://pypi.org/project/openctp-ctp-6315)
-
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/openctp-ctp-6315.svg)](https://pypi.org/project/openctp-ctp-6315)
+[![PyPI - Version](https://badgen.net/badge/pypi/v1.0.0/blue)](https://pypi.org/project/openctp-ctp-6315)
+[![PyPI - Python Version](https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/blue)](https://pypi.org/project/openctp-ctp-6315)
 
 -----
 
@@ -20,6 +19,13 @@ pip install openctp-ctp-6315
 ## Example
 
 [Demo](https://github.com/Jedore/openctp-ctp-python/tree/main/demo)
+
+```python
+from openctp_ctp_6315 import mdapi, tdapi
+
+md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi("market")
+td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
+```
 
 ## License
 

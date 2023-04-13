@@ -9,7 +9,7 @@
         <img src="https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/cyan" />          
     </a> 
 </p>
-        
+
 <p align="center">               
     <a href="https://pypi.org/project/openctp-ctp-6315" target="_blank">                  
         <img src="https://badgen.net/badge/pypi/openctp-ctp-6315/blue" />     
@@ -43,8 +43,10 @@
 </p>
 
 <p align="center">          
-    <em>以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手</em>  
+    <em>:zap:以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手:zap:</em>  
 </p>
+
+-----
 
 ## 安装:hammer_and_wrench:
 
@@ -55,6 +57,13 @@ pip install openctp-ctp-667
 ```
 
 ## 代码示例:man_technologist:
+
+```python
+from openctp_ctp_667 import mdapi, tdapi
+
+md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi("market")
+td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
+```
 
 - 行情 [demo](demo/mdapi.py)
 - 交易 [demo](demo/tdapi.py)
