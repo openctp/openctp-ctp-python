@@ -83,12 +83,9 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
     - Linux_x64
     - Mac_x64 (支持行情)
 
-## 思路:art:
+## 核心逻辑:art:
 
-利用 [SWIG](https://www.swig.org/)及CTPAPI库生成Python扩展库,
-转换流程主要参考[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI)
-
-感谢:pray:[Ralph Jing](https://github.com/nicai0609)
+利用 [SWIG](https://www.swig.org/)及CTPAPI库生成Python扩展库
 
 ```mermaid 
 graph TD;     
@@ -96,6 +93,9 @@ graph TD;
   Python扩展<-->CTPAPI库;     
   CTPAPI库<-->Simnow前置;     
 ```
+
+> 转换流程主要参考[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI) 
+> 感谢[Ralph Jing](https://github.com/nicai0609):pray:
 
 ## 更多信息:page_facing_up:
 
