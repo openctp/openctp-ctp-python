@@ -25,7 +25,7 @@
 </p>
 
 <p align="center">          
-    <em>:zap:以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手:zap:</em>  
+    :rocket:<em>以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手:zap:</em>  
 </p>
 
 -----
@@ -49,7 +49,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
 - 行情 [demo](demo/mdapi.py)
 - 交易 [demo](demo/tdapi.py)
 
-## 主要功能:smile:
+## 主要功能:full_moon_with_face:
 
 - 支持多版本 CTPAPI
     - 6.3.15_20190220

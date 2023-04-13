@@ -10,30 +10,31 @@ TIMEOUT = 5  # seconds
 USER = '209025'
 
 
-def test_mdapi(ctp):
-    class CTdSpiImpl(api.CThostFtdcTraderSpi):
-        def __init__(self, tdapi):
-            super().__init__()
-            self.tdapi = tdapi
+class CTdSpiImpl(api.CThostFtdcTraderSpi):
+    def __init__(self, tdapi):
+        super().__init__()
+        self.tdapi = tdapi
 
-        def OnFrontConnected(self):
-            Q_CONNECT.put(True, timeout=TIMEOUT)
-            req = api.CThostFtdcReqAuthenticateField()
-            req.BrokerID = '9999'
-            req.UserID = USER
-            req.AppID = 'simnow_client_test'
-            req.AuthCode = '0000000000000000'
-            self.tdapi.ReqAuthenticate(req, 0)
+    def OnFrontConnected(self):
+        Q_CONNECT.put(True, timeout=TIMEOUT)
+        req = api.CThostFtdcReqAuthenticateField()
+        req.BrokerID = '9999'
+        req.UserID = USER
+        req.AppID = 'simnow_client_test'
+        req.AuthCode = '0000000000000000'
+        self.tdapi.ReqAuthenticate(req, 0)
 
-        def OnRspAuthenticate(self, pRspAuthenticateField: api.CThostFtdcRspAuthenticateField,
-                              pRspInfo: api.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
-            if pRspInfo is None or pRspInfo.ErrorID == 0:
-                # success
-                Q_AUTH.put(True, timeout=TIMEOUT)
-            else:
-                # failed
-                Q_AUTH.put(False, timeout=TIMEOUT)
+    def OnRspAuthenticate(self, pRspAuthenticateField: api.CThostFtdcRspAuthenticateField,
+                          pRspInfo: api.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
+        if pRspInfo is None or pRspInfo.ErrorID == 0:
+            # success
+            Q_AUTH.put(True, timeout=TIMEOUT)
+        else:
+            # failed
+            Q_AUTH.put(False, timeout=TIMEOUT)
 
+
+def test_mdapi():
     # Success if at least 1 md front success.
     td_fronts = (
         'tcp://180.168.146.187:10130',

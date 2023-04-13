@@ -29,7 +29,7 @@ class CMdSpiImpl(api.CThostFtdcMdSpi):
             Q_LOGIN.put(False, timeout=TIMEOUT)
 
 
-def test_mdapi(ctp):
+def test_mdapi():
     # Success if at least 1 md front success.
     md_fronts = (
         'tcp://180.168.146.187:10131',
