@@ -1,0 +1,66 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Build & Test Package
+
+on: [ workflow_dispatch ]
+
+jobs:
+
+  test-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Building Package
+        working-directory: ctp-651
+        run: hatch build -t wheel
+      - name: Modify Ubuntu Locale
+        run: |
+          sudo apt-get install -y locales
+          sudo locale-gen zh_CN.GB18030
+      - name: Install Package
+        run: |
+          pip install dist/*.whl
+        shell: bash
+      - name: Test
+        run: |
+          pytest --ctp 651 tests
+
+
+  test-windows:
+    needs:
+      - test-macos
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Building Package
+        working-directory: ctp-651
+        run: hatch build -t wheel
+      - name: Install Package
+        run: |
+          pip install dist/*.whl
+        shell: bash
+      - name: Test
+        run: |
+          pytest --ctp 651 tests
