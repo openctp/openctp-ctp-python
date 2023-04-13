@@ -25,7 +25,7 @@
 </p>
 
 <p align="center">          
-    :rocket:<em>以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手:zap:</em>  
+    :rocket:<em>以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手</em>  
 </p>
 
 -----
