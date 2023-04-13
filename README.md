@@ -24,21 +24,22 @@ pip install openctp-ctp-669
 ## 主要特性
 
 - 支持多版本 CTPAPI
-    - 6.3.15
-    - 6.3.19
-    - 6.5.1
-    - 6.6.1
-    - 6.6.7
-    - 6.6.9
+    - 6.3.15_20190220
+    - 6.3.19_P1_20200106
+    - 6.5.1_20200908
+    - 6.6.1_P1_20210406
+    - 6.6.7_20220613
+    - 6.6.9_20220920
 - 支持多版本 Python (3.7 ~ 3.11)
 - 支持多平台
-    - Windows
-    - Linux
-    - Mac (支持行情)
+    - Windows_x64
+    - Linux_x64
+    - Mac_x64 (支持行情)
 
 ## 设计
 
-利用 [SWIG]()及CTPAPI库生成Python扩展库, 转换流程参考[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI).
+利用 [SWIG](https://www.swig.org/)及CTPAPI库生成Python扩展库,
+转换流程主要参考[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI).
 
 ```mermaid 
 graph TD;     
@@ -46,3 +47,4 @@ graph TD;
   Python扩展<-->CTPAPI库;     
   CTPAPI库<-->Simnow前置服务;     
 ```
+
