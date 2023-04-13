@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build&Publish Package
+name: Build & Publish 6315
 
 on: [ workflow_dispatch ]
 
