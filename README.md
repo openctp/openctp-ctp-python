@@ -50,7 +50,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
 - 行情 [demo](demo/mdapi.py)
 - 交易 [demo](demo/tdapi.py)
 
-## 主要功能:full_moon_with_face:
+## 功能:full_moon_with_face:
 
 - 支持多版本 CTPAPI
     - 6.3.15_20190220
@@ -76,8 +76,8 @@ graph TD;
   CTPAPI库<-->Simnow前置;     
 ```
 
-> 转换流程主要参考[Ralph Jing](https://github.com/nicai0609)
-> 的[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI),感谢:pray:
+> 生成Python扩展的逻辑,参考[Ralph Jing](https://github.com/nicai0609)
+> 的[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI) :+1:
 
 ## 更多信息:page_facing_up:
 

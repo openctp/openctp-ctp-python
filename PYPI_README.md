@@ -1,6 +1,5 @@
 # openctp-ctp
 
-[![PyPI - Version](https://badgen.net/badge/pypi/v1.0.0/blue)](https://pypi.org/project/openctp-ctp)
 [![PyPI - Python Version](https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/blue)](https://pypi.org/project/openctp-ctp)
 
 -----
