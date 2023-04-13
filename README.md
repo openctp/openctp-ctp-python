@@ -1,3 +1,5 @@
+<h1 align="center">openctp-ctp</h1>
+
 <p align="center">     
     <a href="http://www.sfit.com.cn/5_2_DocumentDown_6.htm" target="_blank">
         <img src="https://badgen.net/badge/ctpapi/6.3.15|6.3.19|6.5.1|6.6.1|6.6.7|6.6.9/cyan" />
@@ -30,16 +32,15 @@
 
 ## 安装:hammer_and_wrench:
 
-CTPAPI 6.6.7
-
 ```shell
+pip install openctp-ctp==6.3.15
 pip install openctp-ctp==6.6.7
 ```
 
 ## 代码示例:man_technologist:
 
 ```python
-from openctp_ctp_667 import mdapi, tdapi
+from openctp_ctp import mdapi, tdapi
 
 md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi("market")
 td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
@@ -74,11 +75,12 @@ graph TD;
   CTPAPI库<-->Simnow前置;     
 ```
 
-> 转换流程主要参考[Ralph Jing](https://github.com/nicai0609)的[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI),感谢:pray:
+> 转换流程主要参考[Ralph Jing](https://github.com/nicai0609)
+> 的[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI),感谢:pray:
 
 ## 更多信息:page_facing_up:
 
 - [openctp](https://github.com/openctp/openctp)
-- QQ交流群 
+- QQ交流群
 
     <img src="https://user-images.githubusercontent.com/17944025/231727684-fb62f5f9-71d8-448f-9e35-255639756bb2.png" width="200px">

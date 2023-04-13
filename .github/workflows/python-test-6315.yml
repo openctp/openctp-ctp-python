@@ -33,7 +33,7 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest --ctp 6315 tests
+          pytest tests
 
 
   test-windows:
