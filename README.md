@@ -1,6 +1,7 @@
 # openctp-ctp-python
+https://img.shields.io/badge/License-MIT-blue.svg
 
-openctp-ctp-python 的目的是方便使用 Python 对接 [CTPAPI]() .
+openctp-ctp-python 的目的是方便使用 Python 对接 CTPAPI.
 
 ## 安装:hammer_and_wrench:
 
@@ -53,5 +54,5 @@ graph TD;
 ## 更多信息:page_facing_up:
 
 - [openctp](https://github.com/openctp/openctp)
-- [Simnow](https://www.simnow.com.cn/)
 - [CTPAPI](http://www.sfit.com.cn/5_2_DocumentDown_6.htm)
+- QQ交流群: 127235179

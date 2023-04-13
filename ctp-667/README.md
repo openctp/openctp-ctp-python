@@ -17,6 +17,10 @@
 pip install openctp-ctp-667
 ```
 
+## Example
+
+[Demo](https://github.com/Jedore/openctp-ctp-python/tree/main/demo)
+
 ## License
 
 `openctp-ctp-667` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
