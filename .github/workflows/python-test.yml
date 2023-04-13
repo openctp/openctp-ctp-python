@@ -34,7 +34,7 @@ jobs:
         env:
           PY: ${{ matrix.python-version }}
         run: |
-          py="${env.PY//./}"
+          py=${env.PY//./}
           pip install dist/*${{ matrix.ctp-version }}*37*linux*.whl
         shell: bash
       - name: Test
@@ -66,7 +66,6 @@ jobs:
         env:
           PY: ${{ matrix.python-version }}
         run: |
-          py="${env.PY//./}"
           pip install dist/*${{ matrix.ctp-version }}*37*mac*.whl
         shell: bash
       - name: Test
@@ -100,7 +99,7 @@ jobs:
         env:
           PY: ${{ matrix.python-version }}
         run: |
-          py="${env.PY//./}"
+          py=${env.PY//./}
           pip install dist/*${{ matrix.ctp-version }}*${py}*win*.whl
         shell: bash
       - name: Test
