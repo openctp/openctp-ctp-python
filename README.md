@@ -33,6 +33,15 @@
     </a> 
 </p>
 
+<p align="center">  
+    <a href="https://github.com/Jedore/openctp-ctp-python/actions" target="_blank">                                                      
+        <img src="https://badgen.net/badge/CI-Test/passing/green?icon=github" />                         
+    </a> 
+    <a href="https://github.com/Jedore/openctp-ctp-python/blob/main/LICENSE" target="_blank">                                                               
+        <img src="https://badgen.net/badge/license/MIT/green" />                              
+    </a> 
+</p>
+
 <p align="center">          
     <em>以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手</em>  
 </p>
