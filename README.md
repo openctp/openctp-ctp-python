@@ -1,7 +1,39 @@
-# openctp-ctp-python
-https://img.shields.io/badge/License-MIT-blue.svg
+<p align="center">               
+    <a href="https://pypi.org/project/openctp-ctp-6315" target="_blank">                  
+        <img src="https://badgen.net/badge/pypi/openctp-ctp-6315/blue" />     
+    </a>     
+    <a href="https://pypi.org/project/openctp-ctp-6319" target="_blank">                           
+        <img src="https://badgen.net/badge/pypi/openctp-ctp-6319/blue" />          
+    </a>
+    <a href="https://pypi.org/project/openctp-ctp-651" target="_blank">                                    
+        <img src="https://badgen.net/badge/pypi/openctp-ctp-651/blue" />               
+    </a> 
+    <a href="https://pypi.org/project/openctp-ctp-661" target="_blank">                                             
+        <img src="https://badgen.net/badge/pypi/openctp-ctp-661/blue" />                    
+    </a> 
+    <a href="https://pypi.org/project/openctp-ctp-667" target="_blank">                                             
+        <img src="https://badgen.net/badge/pypi/openctp-ctp-667/blue" />                    
+    </a> 
+    <a href="https://pypi.org/project/openctp-ctp-669" target="_blank">                                             
+        <img src="https://badgen.net/badge/pypi/openctp-ctp-669/blue" />                    
+    </a> 
+</p>
 
-openctp-ctp-python 的目的是方便使用 Python 对接 CTPAPI.
+<p align="center">     
+    <a href="http://www.sfit.com.cn/5_2_DocumentDown_6.htm" target="_blank">
+        <img src="https://badgen.net/badge/ctpapi/6.3.15|6.3.19|6.5.1|6.6.1|6.6.7|6.6.9/cyan" />
+    </a>
+    <a href="#">         
+        <img src="https://badgen.net/badge/platform/windows_x64|linux_x64|mac_x64/cyan" />     
+    </a>
+    <a href="#">                  
+        <img src="https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/cyan" />          
+    </a>
+</p>
+
+<p align="center">          
+    <em>以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手</em>  
+</p>
 
 ## 安装:hammer_and_wrench:
 
@@ -9,12 +41,6 @@ CTPAPI 6.6.7
 
 ```shell
 pip install openctp-ctp-667
-```
-
-CTPAPI 6.6.9
-
-```shell
-pip install openctp-ctp-669
 ```
 
 ## 代码示例:man_technologist:
@@ -37,7 +63,7 @@ pip install openctp-ctp-669
     - Linux_x64
     - Mac_x64 (支持行情)
 
-## 设计:art:
+## 思路:art:
 
 利用 [SWIG](https://www.swig.org/)及CTPAPI库生成Python扩展库,
 转换流程主要参考[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI)
