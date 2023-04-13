@@ -68,7 +68,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
 - 行情 [demo](demo/mdapi.py)
 - 交易 [demo](demo/tdapi.py)
 
-## 主要特性:rocket:
+## 主要功能:smile:
 
 - 支持多版本 CTPAPI
     - 6.3.15_20190220
@@ -85,7 +85,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
 
 ## 核心逻辑:art:
 
-利用 [SWIG](https://www.swig.org/)及CTPAPI库生成Python扩展库
+利用 [SWIG](https://www.swig.org/)及 [CTPAPI](http://www.sfit.com.cn/5_2_DocumentDown_6.htm) 库生成Python扩展库
 
 ```mermaid 
 graph TD;     
@@ -94,11 +94,9 @@ graph TD;
   CTPAPI库<-->Simnow前置;     
 ```
 
-> 转换流程主要参考[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI) 
-> 感谢[Ralph Jing](https://github.com/nicai0609):pray:
+> 转换流程主要参考[Ralph Jing](https://github.com/nicai0609)的[Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI),感谢:pray:
 
 ## 更多信息:page_facing_up:
 
 - [openctp](https://github.com/openctp/openctp)
-- [CTPAPI](http://www.sfit.com.cn/5_2_DocumentDown_6.htm)
 - QQ交流群: 127235179
