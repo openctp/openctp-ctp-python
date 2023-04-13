@@ -3,7 +3,7 @@
 """
 import random
 
-from openctp_ctp_667 import mdapi
+from openctp_ctp import mdapi
 
 
 class CMdSpiImpl(mdapi.CThostFtdcMdSpi):

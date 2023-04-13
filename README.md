@@ -5,35 +5,15 @@
     <a href="#">         
         <img src="https://badgen.net/badge/platform/windows_x64|linux_x64|mac_x64/cyan" />  
     </a>        
+</p>
+
+<p align="center">  
+    <a href="https://pypi.org/project/openctp-ctp" target="_blank">                                    
+        <img src="https://badgen.net/badge/pypi/openctp-ctp/blue" />               
+    </a> 
     <a href="#">     
-        <img src="https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/cyan" />          
+        <img src="https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/blue" />          
     </a> 
-</p>
-
-<p align="center">               
-    <a href="https://pypi.org/project/openctp-ctp-6315" target="_blank">                  
-        <img src="https://badgen.net/badge/pypi/openctp-ctp-6315/blue" />     
-    </a>     
-    <a href="https://pypi.org/project/openctp-ctp-6319" target="_blank">                           
-        <img src="https://badgen.net/badge/pypi/openctp-ctp-6319/blue" />          
-    </a>
-    <a href="https://pypi.org/project/openctp-ctp-651" target="_blank">                                    
-        <img src="https://badgen.net/badge/pypi/openctp-ctp-651/blue" />               
-    </a> 
-</p>
-<p align="center">  
-    <a href="https://pypi.org/project/openctp-ctp-661" target="_blank">                                             
-        <img src="https://badgen.net/badge/pypi/openctp-ctp-661/blue" />                    
-    </a> 
-    <a href="https://pypi.org/project/openctp-ctp-667" target="_blank">                                             
-        <img src="https://badgen.net/badge/pypi/openctp-ctp-667/blue" />                    
-    </a> 
-    <a href="https://pypi.org/project/openctp-ctp-669" target="_blank">                                             
-        <img src="https://badgen.net/badge/pypi/openctp-ctp-669/blue" />                    
-    </a> 
-</p>
-
-<p align="center">  
     <a href="https://github.com/Jedore/openctp-ctp-python/actions" target="_blank">                                                      
         <img src="https://badgen.net/badge/CI-Test/passing/green?icon=github" />                         
     </a> 
@@ -53,7 +33,7 @@
 CTPAPI 6.6.7
 
 ```shell
-pip install openctp-ctp-667
+pip install openctp-ctp==6.6.7
 ```
 
 ## 代码示例:man_technologist:

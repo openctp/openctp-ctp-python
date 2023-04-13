@@ -1,7 +1,6 @@
-import importlib
 from queue import Queue
 
-import pytest
+from openctp_ctp import tdapi as api
 
 Q_CONNECT = Queue(maxsize=1)
 Q_AUTH = Queue(maxsize=1)
@@ -11,16 +10,7 @@ TIMEOUT = 5  # seconds
 USER = '209025'
 
 
-@pytest.fixture(scope='session')
-def ctp(pytestconfig):
-    return pytestconfig.getoption("ctp")
-
-
 def test_mdapi(ctp):
-    ctp_pkg = f'openctp_ctp_{ctp}'
-    api = getattr(importlib.import_module(ctp_pkg), 'tdapi')
-    ctp_version = f'{ctp[0]}.{ctp[1]}.{ctp[2:]}'
-
     class CTdSpiImpl(api.CThostFtdcTraderSpi):
         def __init__(self, tdapi):
             super().__init__()
@@ -55,9 +45,6 @@ def test_mdapi(ctp):
     for td_front in td_fronts:
         try:
             tdapi = api.CThostFtdcTraderApi.CreateFtdcTraderApi(USER)
-
-            assert ctp_version in tdapi.GetApiVersion(), 'GetApiVersion Failed!'
-
             tdspi = CTdSpiImpl(tdapi)
             tdapi.RegisterSpi(tdspi)
             tdapi.RegisterFront(td_front)
