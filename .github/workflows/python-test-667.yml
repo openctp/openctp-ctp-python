@@ -9,9 +9,6 @@ jobs:
 
   test-linux:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +21,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctp-${{ matrix.ctp-version }}
+        working-directory: ctp-667
         run: hatch build -t wheel
       - name: Modify Ubuntu Locale
         run: |
@@ -36,15 +33,12 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest --ctp ${{ matrix.ctp-version }} tests
+          pytest --ctp 667 tests
 
   test-macos:
     needs:
       - test-linux
     runs-on: macos-latest
-    strategy:
-      matrix:
-        ctp-version: [ "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -57,7 +51,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctp-${{ matrix.ctp-version }}
+        working-directory: ctp-667
         run: hatch build -t wheel
       - name: Install Package
         run: |
@@ -65,7 +59,7 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest --ctp ${{ matrix.ctp-version }} tests/test_mdapi.py
+          pytest --ctp 667 tests/test_mdapi.py
 
 
   test-windows:
@@ -75,7 +69,6 @@ jobs:
     strategy:
       matrix:
         python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
-        ctp-version: [ "6315", "6319", "651", "661", "667", "669" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -88,7 +81,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctp-${{ matrix.ctp-version }}
+        working-directory: ctp-667
         run: hatch build -t wheel
       - name: Install Package
         run: |
@@ -96,4 +89,4 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest --ctp ${{ matrix.ctp-version }} tests
+          pytest --ctp 667 tests
