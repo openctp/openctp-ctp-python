@@ -31,12 +31,8 @@ jobs:
           sudo apt-get install -y locales
           sudo locale-gen zh_CN.GB18030
       - name: Install Package
-        env:
-          PY: "${{ matrix.python-version }}"
         run: |
-          py=${{ env.PY }}
-          py=${py//./}
-          pip install dist/*${{ matrix.ctp-version }}*37*linux*.whl
+          pip install dist/*.whl
         shell: bash
       - name: Test
         run: |
@@ -64,10 +60,8 @@ jobs:
         working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build -t wheel
       - name: Install Package
-        env:
-          PY: ${{ matrix.python-version }}
         run: |
-          pip install dist/*${{ matrix.ctp-version }}*37*mac*.whl
+          pip install dist/*.whl
         shell: bash
       - name: Test
         run: |
@@ -97,12 +91,8 @@ jobs:
         working-directory: ctp-${{ matrix.ctp-version }}
         run: hatch build -t wheel
       - name: Install Package
-        env:
-          PY: "${{ matrix.python-version }}"
         run: |
-          py=${{ env.PY }}
-          py=${py//./}
-          pip install dist/*${{ matrix.ctp-version }}*${py}*win*.whl
+          pip install dist/*.whl
         shell: bash
       - name: Test
         run: |
