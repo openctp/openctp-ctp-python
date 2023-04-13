@@ -32,9 +32,10 @@ jobs:
           sudo locale-gen zh_CN.GB18030
       - name: Install Package
         env:
-          PY: ${{ matrix.python-version }}
+          PY: "${{ matrix.python-version }}"
         run: |
-          py=${env.PY//./}
+          py=${{ env.PY }}
+          py=${py//./}
           pip install dist/*${{ matrix.ctp-version }}*37*linux*.whl
         shell: bash
       - name: Test
@@ -97,9 +98,10 @@ jobs:
         run: hatch build -t wheel
       - name: Install Package
         env:
-          PY: ${{ matrix.python-version }}
+          PY: "${{ matrix.python-version }}"
         run: |
-          py=${env.PY//./}
+          py=${{ env.PY }}
+          py=${py//./}
           pip install dist/*${{ matrix.ctp-version }}*${py}*win*.whl
         shell: bash
       - name: Test
