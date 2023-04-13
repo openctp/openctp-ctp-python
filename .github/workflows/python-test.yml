@@ -25,14 +25,17 @@ jobs:
           pip install -r requirements.txt
       - name: Building Package
         working-directory: ctp-${{ matrix.ctp-version }}
-        run: hatch build
+        run: hatch build -t wheel
       - name: Modify Ubuntu Locale
         run: |
           sudo apt-get install -y locales
           sudo locale-gen zh_CN.GB18030
       - name: Install Package
-        working-directory: ctp-${{ matrix.ctp-version }}
-        run: pip install dist/*.whl
+        env:
+          PY: ${{ matrix.python-version }}
+        run: |
+          py="${env.PY//./}"
+          pip install dist/*${{ matrix.ctp-version }}*37*linux*.whl
         shell: bash
       - name: Test
         run: |
@@ -58,10 +61,13 @@ jobs:
           pip install -r requirements.txt
       - name: Building Package
         working-directory: ctp-${{ matrix.ctp-version }}
-        run: hatch build
+        run: hatch build -t wheel
       - name: Install Package
-        working-directory: ctp-${{ matrix.ctp-version }}
-        run: pip install dist/*.whl
+        env:
+          PY: ${{ matrix.python-version }}
+        run: |
+          py="${env.PY//./}"
+          pip install dist/*${{ matrix.ctp-version }}*37*mac*.whl
         shell: bash
       - name: Test
         run: |
@@ -89,10 +95,13 @@ jobs:
           pip install -r requirements.txt
       - name: Building Package
         working-directory: ctp-${{ matrix.ctp-version }}
-        run: hatch build
+        run: hatch build -t wheel
       - name: Install Package
-        working-directory: ctp-${{ matrix.ctp-version }}
-        run: pip install dist/*.whl
+        env:
+          PY: ${{ matrix.python-version }}
+        run: |
+          py="${env.PY//./}"
+          pip install dist/*${{ matrix.ctp-version }}*${py}*win*.whl
         shell: bash
       - name: Test
         run: |
