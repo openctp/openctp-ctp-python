@@ -43,7 +43,7 @@
 </p>
 
 <p align="center">          
-    <em>:zap:以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手:zap:</em>  
+    <em>:rocket:以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手</em>  
 </p>
 
 -----
@@ -68,7 +68,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
 - 行情 [demo](demo/mdapi.py)
 - 交易 [demo](demo/tdapi.py)
 
-## 主要功能:smile:
+## 功能:zap:
 
 - 支持多版本 CTPAPI
     - 6.3.15_20190220
@@ -83,7 +83,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
     - Linux_x64
     - Mac_x64 (支持行情)
 
-## 核心逻辑:art:
+## 核心:art:
 
 利用 [SWIG](https://www.swig.org/)及 [CTPAPI](http://www.sfit.com.cn/5_2_DocumentDown_6.htm) 库生成Python扩展库
 
