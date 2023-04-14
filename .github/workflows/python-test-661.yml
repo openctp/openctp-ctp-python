@@ -33,7 +33,7 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest tests
+          pytest --ctp 661 tests
 
 
   test-windows:
@@ -63,4 +63,4 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest tests
+          pytest --ctp 661 tests

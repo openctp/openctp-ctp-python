@@ -3,7 +3,7 @@
 """
 import random
 
-from openctp_ctp import tdapi
+from openctp_ctp_667 import tdapi
 
 
 class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):

@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "openctp-ctp"
-description = 'A package for CTPAPI'
-readme = "../PYPI_README.md"
+name = "openctp-ctp-667"
+description = 'A package for CTPAPI-6.6.7'
+readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
 keywords = ["openctp", "ctp", "ctpapi", "trading", "investment"]
@@ -75,7 +75,7 @@ exclude = [
 ]
 
 [tool.hatch.build.sources]
-"667" = "openctp_ctp"
+"667" = "openctp_ctp_667"
 
 [tool.hatch.build.targets.sdist]
 

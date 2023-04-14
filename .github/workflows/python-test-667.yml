@@ -33,7 +33,7 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest tests
+          pytest --ctp 667 tests
 
   test-macos:
     needs:
@@ -59,7 +59,7 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest tests/test_mdapi.py
+          pytest --ctp 667 tests/test_mdapi.py
 
 
   test-windows:
@@ -89,4 +89,4 @@ jobs:
         shell: bash
       - name: Test
         run: |
-          pytest tests
+          pytest --ctp 667 tests
