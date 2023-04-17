@@ -48,7 +48,7 @@
 
 -----
 
-## 项目说明:basecampy:
+## 项目说明:golf:
 上期技术提供了 C++ 版本的 CTPAPI, 同时提供了 simnow 平台以供测试。 限于 C++ 本身的复杂度，有热心网友根据 CTPAPI 生成了 Python 版本的 Python-CTPAPI。 若要使用 Python-CTPAPI 需要手动执行一些配置操作，对于新手来说，仍然不够友好。
 
 本项目的初衷便是将 Python-CTPAPI 打包上传到 PyPi平台，可以使用 `pip install ...` 的形式，轻松安装使用 Python-CTPAPI。
@@ -107,6 +107,4 @@ graph TD;
 ## 更多信息:page_facing_up:
 
 - [openctp](https://github.com/openctp/openctp)
-- QQ交流群 
-
-    <img src="https://user-images.githubusercontent.com/17944025/231727684-fb62f5f9-71d8-448f-9e35-255639756bb2.png" width="200px">
+- QQ交流群 127235179
