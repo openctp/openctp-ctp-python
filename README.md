@@ -48,6 +48,14 @@
 
 -----
 
+## 项目说明
+上期技术提供了 C++ 版本的 CTPAPI, 同时提供了 simnow 平台以供测试。 限于 C++ 本身的复杂度，有热心网友根据 CTPAPI 生成了 Python 版本的 Python-CTPAPI。 若要使用 Python-CTPAPI 需要手动执行一些配置操作，对于新手来说，仍然不够友好。
+
+本项目的初衷便是将 Python-CTPAPI 打包上传到 PyPi平台，可以使用 `pip install ...` 的形式，轻松安装使用 Python-CTPAPI。
+关于 Python-CTPAPI 可以参考 [openctp-ctpapi-python](https://github.com/openctp/openctp/tree/master/ctpapi-python) 及 [Python-CTPAPI](https://github.com/nicai0609/Python-CTPAPI)，本项目中的部分动态库也是来自以上两个项目或根据相同思路而生产。
+
+限于精力有限，本项目只是进行了 Python-CTPAPI 的打包上传及简单的连接测试，正式使用前请一定进行充分的测试。
+
 ## 安装:hammer_and_wrench:
 
 CTPAPI 6.6.7

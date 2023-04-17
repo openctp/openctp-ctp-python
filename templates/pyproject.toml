@@ -1,0 +1,87 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "openctp-ctp-CTP_VERSION"
+description = 'A package for CTPAPI-CTP_VERSION2'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = ["openctp", "ctp", "ctpapi", "trading", "investment"]
+authors = [
+    { name = "Jedore", email = "jedore@protonmail.com" },
+]
+maintainers = [
+    { name = "Jedore", email = "jedore@protonmail.com" },
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Natural Language :: Chinese (Simplified)",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = []
+dynamic = ["version"]
+
+[project.urls]
+Source = "https://github.com/Jedore/openctp-ctp-python"
+Issues = "https://github.com/Jedore/openctp-ctp-python/issues"
+Openctp = "https://github.com/openctp/openctp"
+
+[tool.hatch.version]
+path = "libs/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+    "pytest",
+    "pytest-cov",
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=libs --cov=tests {args}"
+no-cov = "cov --no-cov {args}"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["37", "38", "39", "310", "311"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+    "libs/__about__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.hatch.build]
+directory = "../dist/"
+exclude = [
+    "hatch_build_hook.py",
+]
+
+[tool.hatch.build.sources]
+"libs" = "openctp_ctp_CTP_VERSION"
+
+[tool.hatch.build.targets.sdist]
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "hatch_build_hook.py"
+
+[tool.cibuildwheel]
+skip = "pp* *-musllinux* *-manylinux_i686"
+#test-requires = "pytest"
+#test-command = "TEST"
