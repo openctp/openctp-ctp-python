@@ -58,10 +58,13 @@
 
 ## 安装:hammer_and_wrench:
 
-CTPAPI 6.6.7
-
 ```shell
+# pip install openctp-ctp-<ctp version>
+pip install openctp-ctp-6319
 pip install openctp-ctp-667
+.
+.
+.
 ```
 
 ## 代码示例:man_technologist:
