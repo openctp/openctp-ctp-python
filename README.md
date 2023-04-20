@@ -107,4 +107,5 @@ graph TD;
 ## 更多信息:page_facing_up:
 
 - [openctp](https://github.com/openctp/openctp)
+- [openctp-tts-python](https://github.com/Jedore/openctp-tts-python)
 - QQ交流群 127235179
