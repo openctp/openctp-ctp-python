@@ -95,9 +95,9 @@ jobs:
       - name: Publish a Python distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          #          password: ${{ secrets.PYPI_API_TOKEN }}
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PYPI_API_TOKEN }}
+#          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+#          repository-url: https://test.pypi.org/legacy/
 
 
   test-linux:
@@ -128,8 +128,8 @@ jobs:
       - name: Generate projects files
         run: python templates/sync.py 6315
       - name: Install openctp-ctp-6315
-        run: pip install -i https://test.pypi.org/simple/ openctp-ctp-6315
-      #        run: pip install openctp-ctp-6315
+#        run: pip install -i https://test.pypi.org/simple/ openctp-ctp-6315
+        run: pip install openctp-ctp-6315
       - name: Test
         working-directory: openctp-ctp-6315
         run: pytest tests
@@ -159,8 +159,8 @@ jobs:
       - name: Generate projects files
         run: python templates/sync.py 6315
       - name: Install openctp-ctp-6315
-        #        run: pip install openctp-ctp-6315
-        run: pip install -i https://test.pypi.org/simple/ openctp-ctp-6315
+        run: pip install openctp-ctp-6315
+#        run: pip install -i https://test.pypi.org/simple/ openctp-ctp-6315
       - name: Test
         working-directory: openctp-ctp-6315
         run: pytest tests
