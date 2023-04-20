@@ -71,6 +71,7 @@ exclude_lines = [
 directory = "../dist/"
 exclude = [
     "hatch_build_hook.py",
+    "tests",
 ]
 
 [tool.hatch.build.sources]
@@ -82,6 +83,6 @@ exclude = [
 path = "hatch_build_hook.py"
 
 [tool.cibuildwheel]
-skip = "pp* *-musllinux* *-manylinux_i686"
+skip = "pp* *-musllinux* *-manylinux_i686 *win32 *win_arm64 *macosx_universal2 *macosx_arm64"
 #test-requires = "pytest"
 #test-command = "TEST"

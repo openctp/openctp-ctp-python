@@ -43,7 +43,7 @@
 </p>
 
 <p align="center">          
-    <em>:rocket:以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手</em>  
+    <em>:rocket:以 Python 的方式，简化对接 SimNow 的过程，节省精力，快速上手</em>  
 </p>
 
 -----
