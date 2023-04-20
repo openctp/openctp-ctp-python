@@ -34,7 +34,7 @@ if __name__ == '__main__':
     print('Sync __about__.py')
     with open(src_file('__about__.py'), 'r') as file_obj:
         text = file_obj.read()
-    new_text = text.replace('PKG_VERSION', '3.0.5')
+    new_text = text.replace('PKG_VERSION', '3.0.6')
     with open(target_file('libs', '__about__.py'), 'w') as file_obj:
         file_obj.write(new_text)
 

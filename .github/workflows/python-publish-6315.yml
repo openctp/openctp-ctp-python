@@ -14,23 +14,28 @@ jobs:
 
   build-linux:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
-
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.7
+      - name: Checkout openctp-ctp-6315
+        uses: actions/checkout@v3
+        with:
+          repository: Jedore/openctp-ctp-6315
+          path: openctp-ctp-6315
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.11"
+      - name: Generate projects files
+        run: python templates/sync.py 6315
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctp-6315
-        run: hatch build -t wheel
+        working-directory: openctp-ctp-6315
+        run: |
+          export CIBW_REPAIR_WHEEL_COMMAND=
+          python -m cibuildwheel --platform linux --output-dir ../dist
+        shell: bash
       - name: Store Package
         uses: actions/upload-artifact@v3
         with:
@@ -39,26 +44,29 @@ jobs:
 
 
   build-windows:
-    needs:
-      - build-linux
     runs-on: windows-latest
-    strategy:
-      matrix:
-        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
-
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Checkout openctp-ctp-6315
+        uses: actions/checkout@v3
+        with:
+          repository: Jedore/openctp-ctp-6315
+          path: openctp-ctp-6315
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.11"
+      - name: Generate projects files
+        run: python templates/sync.py 6315
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Building Package
-        working-directory: ctp-6315
-        run: hatch build -t wheel
+        working-directory: openctp-ctp-6315
+        run: |
+          export CIBW_REPAIR_WHEEL_COMMAND=
+          python -m cibuildwheel --platform windows --output-dir ../dist
+        shell: bash
       - name: Store Package
         uses: actions/upload-artifact@v3
         with:
@@ -68,16 +76,16 @@ jobs:
 
   publish-wheel:
     needs:
+      - build-linux
       - build-windows
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install hatch
       - name: Download Package
         uses: actions/download-artifact@v3
@@ -87,4 +95,72 @@ jobs:
       - name: Publish a Python distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          #          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository-url: https://test.pypi.org/legacy/
+
+
+  test-linux:
+    needs:
+      - publish-wheel
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout openctp-ctp-6315
+        uses: actions/checkout@v3
+        with:
+          repository: Jedore/openctp-ctp-6315
+          path: openctp-ctp-6315
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Modify Ubuntu Locale
+        run: |
+          sudo apt-get install -y locales
+          sudo locale-gen zh_CN.GB18030
+      - name: Install dependencies
+        run: |
+          pip install pytest
+      - name: Generate projects files
+        run: python templates/sync.py 6315
+      - name: Install openctp-ctp-6315
+        run: pip install -i https://test.pypi.org/simple/ openctp-ctp-6315
+      #        run: pip install openctp-ctp-6315
+      - name: Test
+        working-directory: openctp-ctp-6315
+        run: pytest tests
+
+
+  test-windows:
+    needs:
+      - publish-wheel
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout openctp-ctp-6315
+        uses: actions/checkout@v3
+        with:
+          repository: Jedore/openctp-ctp-6315
+          path: openctp-ctp-6315
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install pytest
+      - name: Generate projects files
+        run: python templates/sync.py 6315
+      - name: Install openctp-ctp-6315
+        #        run: pip install openctp-ctp-6315
+        run: pip install -i https://test.pypi.org/simple/ openctp-ctp-6315
+      - name: Test
+        working-directory: openctp-ctp-6315
+        run: pytest tests

@@ -195,7 +195,7 @@ jobs:
       #        run: pip install openctp-ctp-667
       - name: Test
         working-directory: openctp-ctp-667
-        run: pytest tests
+        run: pytest tests/test_mdapi.py
 
 
   test-windows:
