@@ -36,6 +36,13 @@ pip install openctp-ctp==6.6.9
 
 ## 代码示例
 
+```python
+from openctp_ctp import mdapi, tdapi
+
+md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi("market")
+td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
+```
+
 - 行情 [demo](demo/mdapi.py)
 - 交易 [demo](demo/tdapi.py)
 
@@ -56,7 +63,8 @@ pip install openctp-ctp==6.6.9
 
 ## 其他说明
 
-- 限于时间/精力有限，只是在 SimNow 平台进行了简单的测试，后续会完善更多的测试；若要通过 openctp-ctp
+- 限于时间/精力有限，只是在 SimNow 平台进行了简单的测试，若要通过 openctp-ctp
   使用CTPAPI所有的接口或用于生产环境，请自行进行充分测试。
+- 后续会完善更多的测试, 以及用于生产的验证
 
 *使用本项目进行实盘交易的后果完全由使用者自己承担。*
