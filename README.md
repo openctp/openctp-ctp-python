@@ -26,12 +26,12 @@
 ## 安装
 
 ```shell
-pip install openctp-ctp==6.3.15
-pip install openctp-ctp==6.3.19
-pip install openctp-ctp==6.5.1
-pip install openctp-ctp==6.6.1
-pip install openctp-ctp==6.6.7
-pip install openctp-ctp==6.6.9
+pip install openctp-ctp==6.3.15.*
+pip install openctp-ctp==6.3.19.*
+pip install openctp-ctp==6.5.1.*
+pip install openctp-ctp==6.6.1.*
+pip install openctp-ctp==6.6.7.*
+pip install openctp-ctp==6.6.9.*
 ```
 
 ## 代码示例
