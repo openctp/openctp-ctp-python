@@ -1,27 +1,23 @@
-<p align="center">     
-    <a href="http://www.sfit.com.cn/5_2_DocumentDown_6.htm" target="_blank">
-        <img src="https://badgen.net/badge/ctpapi/6.3.15|6.3.19_P1|6.5.1|6.6.1_P1|6.6.7|6.6.9/cyan" />
-    </a>       
-    <a href="#">         
-        <img src="https://badgen.net/badge/platform/windows_x64|linux_x64|mac_x64/cyan" />  
-    </a>        
-</p>
-
-<p align="center">  
-    <a href="#">     
-        <img src="https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/cyan" />          
-    </a> 
-    <a href="https://pypi.org/project/openctp-ctp-669" target="_blank">                                             
-        <img src="https://badgen.net/badge/pypi/openctp-ctp/blue" />                    
-    </a> 
-</p>
-
+<h1 align="center">OPENCTP-CTP</h1>
 
 <p align="center">          
-    <em>:rocket:以 Python 的方式，简化对接 CTP 的过程，节省精力，快速上手</em>  
+    <em>:rocket:以 Python 的方式，简化对接 CTPAPI 的过程，节省精力，快速上手</em>  
 </p>
 
------
+<p align="center">     
+    <a href="https://pypi.org/project/openctp-ctp" target="_blank">                                             
+        <img src="https://badgen.net/badge/pypi/openctp-ctp/green" />                    
+    </a> 
+    <a href="https://gitee.com/jedore/ctp-resources" target="_blank">
+        <img src="https://badgen.net/badge/ctpapi/6.3.15|6.3.19_P1|6.5.1|6.6.1_P1|6.6.7|6.6.9|6.7.0/green" />
+    </a>       
+    <a href="#">     
+        <img src="https://badgen.net/badge/python/3.7|3.8|3.9|3.10|3.11/green" />          
+    </a> 
+    <a href="#">         
+        <img src="https://badgen.net/badge/plat/Windows|Linux|Mac/green" />  
+    </a>        
+</p>
 
 ## 安装
 
@@ -32,7 +28,10 @@ pip install openctp-ctp==6.5.1.*
 pip install openctp-ctp==6.6.1.*
 pip install openctp-ctp==6.6.7.*
 pip install openctp-ctp==6.6.9.*
+pip install openctp-ctp==6.7.0.*
 ```
+
+同时只能安装一个版本的CTPAPI
 
 ## 代码示例
 
@@ -55,16 +54,18 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
     - 6.6.1_P1
     - 6.6.7
     - 6.6.9
+    - 6.7.0
 - 支持多版本 Python 3.7 ~ 3.11
 - 支持多平台
     - Windows x64
     - Linux x64
-    - Mac x64
+    - Mac x64 arm64
 
 ## 其他说明
 
-- 限于时间/精力有限，只是在 SimNow 平台进行了简单的测试，若要通过 openctp-ctp
+- 限于时间/精力有限，只是在 SimNow 模拟平台进行了简单的测试，若要通过 openctp-ctp
   使用CTPAPI所有的接口或用于生产环境，请自行进行充分测试。
 - 后续会完善更多的测试, 以及用于生产的验证
+- [更新日志](CHANGELOG.md)
 
 *使用本项目进行实盘交易的后果完全由使用者自己承担。*
