@@ -67,6 +67,30 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
     - Linux x64
     - Mac x64 arm64
 
+## 常见问题
+
+1. Linux下安装后，导入时报错
+    ```text
+    >>> import openctp_tts
+    terminate called after throwing an instance of 'std::runtime_error'
+      what():  locale::facet::_S_create_c_locale name not valid
+    Aborted
+    ```
+   这是字符集问题，方案：
+    ```bash
+    # Ubuntu (20.04)
+    sudo apt-get install -y locales
+    sudo locale-gen zh_CN.GB18030
+   
+    # Debian (11)
+    sudo apt install locales-all
+    sudo localedef -c -f GB18030 -i zh_CN zh_CN.GB18030
+   
+    # CentOS (7)
+    sudo yum install -y kde-l10n-Chinese
+    sudo yum reinstall -y glibc-common
+    ```
+
 ## 其他说明
 
 - 限于时间/精力有限，只是在 SimNow 模拟平台进行了简单的测试，若要通过 openctp-ctp
