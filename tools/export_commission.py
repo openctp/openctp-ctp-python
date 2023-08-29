@@ -12,7 +12,7 @@ td_front = 'tcp://180.168.146.187:10130'
 
 # 账号/密码 从 OpenCTP 公众号申请
 user = '209025'
-password = 'sWJedore20@#0807'
+password = 'xxx'
 
 broker_id = '9999'
 authcode = '0000000000000000'
