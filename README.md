@@ -71,7 +71,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
 
 1. Linux下安装后，导入时报错
     ```text
-    >>> import openctp_tts
+    >>> import openctp_ctp
     terminate called after throwing an instance of 'std::runtime_error'
       what():  locale::facet::_S_create_c_locale name not valid
     Aborted
