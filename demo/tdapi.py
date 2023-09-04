@@ -2,6 +2,7 @@
     交易API demo
 """
 import inspect
+import queue
 import time
 
 from openctp_ctp import tdapi
@@ -13,13 +14,13 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
     """交易回调实现类"""
 
     def __init__(
-            self,
-            front: str,
-            user: str,
-            passwd: str,
-            authcode: str,
-            appid: str,
-            broker_id: str,
+        self,
+        front: str,
+        user: str,
+        passwd: str,
+        authcode: str,
+        appid: str,
+        broker_id: str,
     ):
         print("-------------------------------- 启动 trader api demo ")
         super().__init__()
@@ -32,9 +33,13 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
 
         self._is_authenticate = False
         self._is_login = False
+
         self._is_last = True
         self._print_max = 5
         self._print_count = 0
+        self._total = 0
+
+        self._wait_queue = queue.Queue(1)
 
         self._api: tdapi.CThostFtdcTraderApi = (
             tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi(self._user)
@@ -61,7 +66,6 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
 
     def release(self):
         # 释放实例
-        print("释放实例")
         self._api.Release()
 
     def _check_req(self, req, ret: int):
@@ -90,10 +94,7 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         True: 成功 False: 失败
         """
 
-        if is_last:
-            self._is_last = True
-            self._print_count = 0
-
+        if self._is_last:
             if pRspInfo and pRspInfo.ErrorID != 0:
                 self.print(
                     f"响应失败, ErrorID={pRspInfo.ErrorID}, ErrorMsg={pRspInfo.ErrorMsg}"
@@ -108,19 +109,47 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
                         params.append(f"{name}={value}")
                 self.print("响应内容:", ",".join(params))
 
-        else:
-            if self._print_count >= self._print_max:
-                return True
-            self._is_last = False
-            self._print_count += 1
+            if not is_last:
+                self._print_count += 1
+                self._total = +1
+            else:
+                if self._is_login:
+                    self._wait_queue.put_nowait(None)
 
-            if rsp:
-                params = []
-                for name, value in inspect.getmembers(rsp):
-                    if name[0].isupper():
-                        params.append(f"{name}={value}")
-                self.print("     ", ",".join(params))
+        else:
+            if self._print_count < self._print_max:
+                if rsp:
+                    params = []
+                    for name, value in inspect.getmembers(rsp):
+                        if name[0].isupper():
+                            params.append(f"{name}={value}")
+                    self.print("     ", ",".join(params))
+
+                self._print_count += 1
+
+            self._total += 1
+
+            if is_last:
+                self.print("总计数量:", self._total, '打印数量:', self._print_count)
+
+                self._print_count = 0
+                self._total = 0
+
+                if self._is_login:
+                    self._wait_queue.put_nowait(None)
+
+        self._is_last = is_last
+
         return True
+
+    @staticmethod
+    def print_rsp_rtn(prefix, rsp_rtn):
+        if rsp_rtn:
+            params = []
+            for name, value in inspect.getmembers(rsp_rtn):
+                if name[0].isupper():
+                    params.append(f"{name}={value}")
+            print(">", prefix, ",".join(params))
 
     @staticmethod
     def print(*args, **kwargs):
@@ -149,11 +178,11 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         self._check_req(_req, self._api.ReqAuthenticate(_req, 0))
 
     def OnRspAuthenticate(
-            self,
-            pRspAuthenticateField: tdapi.CThostFtdcRspAuthenticateField,
-            pRspInfo: tdapi.CThostFtdcRspInfoField,
-            nRequestID: int,
-            bIsLast: bool,
+        self,
+        pRspAuthenticateField: tdapi.CThostFtdcRspAuthenticateField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
     ):
         """客户端认证响应"""
         if not self._check_rsp(pRspInfo, pRspAuthenticateField):
@@ -175,11 +204,11 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         self._check_req(_req, self._api.ReqUserLogin(_req, 0))
 
     def OnRspUserLogin(
-            self,
-            pRspUserLogin: tdapi.CThostFtdcRspUserLoginField,
-            pRspInfo: tdapi.CThostFtdcRspInfoField,
-            nRequestID: int,
-            bIsLast: bool,
+        self,
+        pRspUserLogin: tdapi.CThostFtdcRspUserLoginField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
     ):
         """登录响应"""
         if not self._check_rsp(pRspInfo, pRspUserLogin):
@@ -197,44 +226,132 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         self._check_req(_req, self._api.ReqSettlementInfoConfirm(_req, 0))
 
     def OnRspSettlementInfoConfirm(
-            self,
-            pSettlementInfoConfirm: tdapi.CThostFtdcSettlementInfoConfirmField,
-            pRspInfo: tdapi.CThostFtdcRspInfoField,
-            nRequestID: int,
-            bIsLast: bool,
+        self,
+        pSettlementInfoConfirm: tdapi.CThostFtdcSettlementInfoConfirmField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
     ):
         """投资者结算结果确认响应"""
         if not self._check_rsp(pRspInfo, pSettlementInfoConfirm):
             return
 
-    def qry_instrument(self):
+    def qry_instrument(self, exchange_id: str = '', product_id: str = '', instrument_id: str = ''):
         """请求查询合约"""
         print("> 请求查询合约")
-        self.print("发送请求")
         _req = tdapi.CThostFtdcQryInstrumentField()
         # 填空可以查询到所有合约
-        # _req.ExchangeID = ''
-        # _req.ProductID = ''
-        # _req.InstrumentID = ''
+        # 也可分别根据交易所、品种、合约 三个字段查询指定的合约
+        _req.ExchangeID = exchange_id
+        _req.ProductID = product_id
+        _req.InstrumentID = instrument_id
         self._check_req(_req, self._api.ReqQryInstrument(_req, 0))
 
     def OnRspQryInstrument(
-            self,
-            pInstrument: tdapi.CThostFtdcInstrumentField,
-            pRspInfo: tdapi.CThostFtdcRspInfoField,
-            nRequestID: int,
-            bIsLast: bool,
+        self,
+        pInstrument: tdapi.CThostFtdcInstrumentField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
     ):
         """请求查询合约响应"""
-        if not self._check_rsp(pRspInfo, pInstrument):
+        if not self._check_rsp(pRspInfo, pInstrument, bIsLast):
             return
-        self._instrument = True
 
-        if bIsLast:
-            self._instrument = False
+    def qry_instrument_commission_rate(self, instrument_id: str = ""):
+        """请求查询合约手续费率"""
+        print("> 请求查询合约手续费率")
+        _req = tdapi.CThostFtdcQryInstrumentCommissionRateField()
+        _req.BrokerID = self._broker_id
+        _req.InvestorID = self._user
+        # 若不指定合约ID, 则返回当前持仓对应合约的手续费率
+        _req.InstrumentID = instrument_id
+        self._check_req(_req, self._api.ReqQryInstrumentCommissionRate(_req, 0))
+
+    def OnRspQryInstrumentCommissionRate(
+        self,
+        pInstrumentCommissionRate: tdapi.CThostFtdcInstrumentCommissionRateField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
+    ):
+        """请求查询合约手续费率响应"""
+        if not self._check_rsp(pRspInfo, pInstrumentCommissionRate, bIsLast):
+            return
+
+    def qry_instrument_margin_rate(self, instrument_id: str = ''):
+        """请求查询合约保证金率"""
+        print("> 请求查询合约保证金率")
+        _req = tdapi.CThostFtdcQryInstrumentMarginRateField()
+        _req.BrokerID = self._broker_id
+        _req.InvestorID = self._user
+        _req.HedgeFlag = tdapi.THOST_FTDC_HF_Speculation
+        # 若不指定合约ID, 则返回当前持仓对应合约的保证金率
+        _req.InstrumentID = instrument_id
+        self._check_req(_req, self._api.ReqQryInstrumentMarginRate(_req, 0))
+
+    def OnRspQryInstrumentMarginRate(
+        self, pInstrumentMarginRate: tdapi.CThostFtdcInstrumentMarginRateField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
+    ):
+        """请求查询合约保证金率响应"""
+        if not self._check_rsp(pRspInfo, pInstrumentMarginRate, bIsLast):
+            return
+
+    def qry_depth_market_data(self, instrument_id: str = ""):
+        """请求查询行情，只能查询当前快照，不能查询历史行情"""
+        print("> 请求查询行情")
+        _req = tdapi.CThostFtdcQryDepthMarketDataField()
+        # 若不指定合约ID, 则返回所有合约的行情
+        _req.InstrumentID = instrument_id
+        self._check_req(_req, self._api.ReqQryDepthMarketData(_req, 0))
+
+    def OnRspQryDepthMarketData(
+        self,
+        pDepthMarketData: tdapi.CThostFtdcDepthMarketDataField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
+    ):
+        """请求查询行情响应"""
+        if not self._check_rsp(pRspInfo, pDepthMarketData, bIsLast):
+            return
+
+    def order_insert(self):
+        """报单录入请求
+
+        - 录入错误时对应响应OnRspOrderInsert、OnErrRtnOrderInsert，
+        - 正确时对应回报OnRtnOrder、OnRtnTrade。
+        """
+
+    def order_cancel(self):
+        """报单操作请求
+
+        - 错误响应: OnRspOrderAction，OnErrRtnOrderAction
+        - 正确响应：OnRtnOrder
+        """
+
+    def OnRspOrderInsert(
+        self, pInputOrder: tdapi.CThostFtdcInputOrderField,
+        pRspInfo: tdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
+    ):
+        """报单录入请求响应 """
+        if not self._check_rsp(pRspInfo, pInputOrder, bIsLast):
+            return
+
+    def OnRtnOrder(self, pOrder: tdapi.CThostFtdcOrderField):
+        """报单通知，当执行ReqOrderInsert后并且报出后，收到返回则调用此接口，私有流回报。"""
+
+    def OnRtnTrade(self, pTrade: tdapi.CThostFtdcTradeField):
+        """成交通知，报单发出后有成交则通过此接口返回。私有流"""
 
     def wait(self):
         # 阻塞 等待
+        self._wait_queue.get()
         print("-------------------------------- 按任意键退出 trader api demo ")
         input()
 
@@ -258,6 +375,15 @@ if __name__ == "__main__":
             break
 
     # spi.settlement_info_confirm()
-    spi.qry_instrument()
+    # spi.qry_instrument()
+    # spi.qry_instrument(exchange_id="CZCE")
+    # spi.qry_instrument(product_id="AP")
+    # spi.qry_instrument(instrument_id="AP404")
+    # spi.qry_instrument_commission_rate()
+    # spi.qry_instrument_commission_rate("ZC309")
+    # spi.qry_instrument_margin_rate()
+    # spi.qry_instrument_margin_rate(instrument_id="ZC309")
+    # spi.qry_depth_market_data()
+    # spi.qry_depth_market_data(instrument_id="ZC309")
 
     spi.wait()
