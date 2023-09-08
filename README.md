@@ -25,47 +25,61 @@
     </a> 
 </p>
 
-## 安装
+## 简介
+
+**openctp-ctp** 是由 [**openctp**](https://github.com/openctp) 团队提供的 ctp 官方 ctpapi(c++) 的python版本，
+使用 **swig** 转换 ctpapi(c++) 生成。
+
+openctp-ctp 有 6.3.15.x / 6.3.19.x / 6.5.1.x / 6.6.1.x / 6.6.7.x / 6.6.9.x / 6.7.0.x 多个版本系列，
+分别对应 ctpapi(c++) 的**生产版本**: 6.3.15 / 6.3.19_P1 / 6.5.1 / 6.6.1_P1 / 6.6.7 / 6.6.9 / 6.7.0
+
+*通过 openctp-ctp 库只能连接支持 ctpapi(c++) **官方实现**的柜台，如：simnow; 不支持连接所谓的兼容 ctpapi(c++)
+接口但**非官方实现**的柜台，如: openctp(由tts支持).*
+
+## 安装使用
+
+*需要自行提前准备好 Python 环境*
+
+安装方式:
 
 ```shell
-pip install openctp-ctp==6.3.15.*
-pip install openctp-ctp==6.3.19.*
-pip install openctp-ctp==6.5.1.*
-pip install openctp-ctp==6.6.1.*
+# 安装最新版
+pip install openctp-ctp
+# 指定版本号
 pip install openctp-ctp==6.6.7.*
-pip install openctp-ctp==6.6.9.*
-pip install openctp-ctp==6.7.0.*
 ```
 
-同时只能安装一个版本的CTPAPI
+*需要注意同时只能安装一个版本系列的 openctp-ctp*
+
+引用方式:
+
+```python 
+from openctp_ctp import tdapi, mdapi
+```
+
+更多使用方式参见代码示例。
 
 ## 代码示例
 
-```python
-from openctp_ctp import mdapi, tdapi
-
-md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi("market")
-td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
-```
+本项目提供了一些 openctp-ctp 的基本使用方式及部分接口示例，具体如下。
 
 - 行情 [demo](demo/mdapi.py)
+    - 登录
+    - 订阅行情
 - 交易 [demo](demo/tdapi.py)
+    - 登录
+    - 投资者结算结果确认
+    - 请求查询合约
+    - 请求查询合约手续费率
+    - 请求查询合约保证金率
+    - 请求查询行情
+    - 报单录入请求
+    - 报单撤销请求
 
-## 功能
+**代码示例仅仅作为参考，只是完成 openctp-ctp 库及ctpapi接口本身的功能，未考虑项目及工程性场景逻辑，
+若要将 openctp-ctp 引入项目，勿照搬示例代码。**
 
-- 支持多版本 CTPAPI
-    - 6.3.15
-    - 6.3.19_P1
-    - 6.5.1
-    - 6.6.1_P1
-    - 6.6.7
-    - 6.6.9
-    - 6.7.0
-- 支持多版本 Python 3.7 ~ 3.11
-- 支持多平台
-    - Windows x64
-    - Linux x64
-    - Mac x64 arm64
+*代码示例不在pypi库中，只能手动下载使用。*
 
 ## 常见问题
 
@@ -76,7 +90,7 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
       what():  locale::facet::_S_create_c_locale name not valid
     Aborted
     ```
-   这是字符集问题，方案：
+   这是字符集问题，需要安装 `GB18030` 字符集，这里提供 ubuntu/debian/centos 的方案：
     ```bash
     # Ubuntu (20.04)
     sudo apt-get install -y locales
@@ -91,6 +105,16 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
     sudo yum reinstall -y glibc-common
     ```
 
+2. 如何使用评测版本 ctpapi
+
+   openctp-ctp 只支持 ctpapi 生产版本，不支持评测版本。
+
+3. 支持哪些系统平台
+    - Window x64
+    - Linux x64
+    - Mac x64
+    - Mac arm64
+
 ## 其他说明
 
 - 限于时间/精力有限，只是在 SimNow 模拟平台进行了简单的测试，若要通过 openctp-ctp
@@ -98,4 +122,4 @@ td_api = tdapi.CThostFtdcTraderApi.CreateFtdcTraderApi('user_id')
 - 后续会完善更多的测试, 以及用于生产的验证
 - [更新日志](CHANGELOG.md)
 
-*使用本项目进行实盘交易的后果完全由使用者自己承担。*
+**使用 openctp-ctp 进行实盘交易的后果完全由使用者自己承担。**

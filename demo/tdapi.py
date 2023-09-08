@@ -88,7 +88,9 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         if ret != 0:
             self.print(f"请求失败: {ret}={error}")
 
-    def _check_rsp(self, pRspInfo: tdapi.CThostFtdcRspInfoField, rsp=None, is_last: bool = True) -> bool:
+    def _check_rsp(
+        self, pRspInfo: tdapi.CThostFtdcRspInfoField, rsp=None, is_last: bool = True
+    ) -> bool:
         """检查响应
 
         True: 成功 False: 失败
@@ -130,7 +132,7 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
             self._total += 1
 
             if is_last:
-                self.print("总计数量:", self._total, '打印数量:', self._print_count)
+                self.print("总计数量:", self._total, "打印数量:", self._print_count)
 
                 self._print_count = 0
                 self._total = 0
@@ -236,7 +238,9 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         if not self._check_rsp(pRspInfo, pSettlementInfoConfirm):
             return
 
-    def qry_instrument(self, exchange_id: str = '', product_id: str = '', instrument_id: str = ''):
+    def qry_instrument(
+        self, exchange_id: str = "", product_id: str = "", instrument_id: str = ""
+    ):
         """请求查询合约"""
         print("> 请求查询合约")
         _req = tdapi.CThostFtdcQryInstrumentField()
@@ -279,7 +283,7 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         if not self._check_rsp(pRspInfo, pInstrumentCommissionRate, bIsLast):
             return
 
-    def qry_instrument_margin_rate(self, instrument_id: str = ''):
+    def qry_instrument_margin_rate(self, instrument_id: str = ""):
         """请求查询合约保证金率"""
         print("> 请求查询合约保证金率")
         _req = tdapi.CThostFtdcQryInstrumentMarginRateField()
@@ -291,7 +295,8 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         self._check_req(_req, self._api.ReqQryInstrumentMarginRate(_req, 0))
 
     def OnRspQryInstrumentMarginRate(
-        self, pInstrumentMarginRate: tdapi.CThostFtdcInstrumentMarginRateField,
+        self,
+        pInstrumentMarginRate: tdapi.CThostFtdcInstrumentMarginRateField,
         pRspInfo: tdapi.CThostFtdcRspInfoField,
         nRequestID: int,
         bIsLast: bool,
@@ -327,19 +332,20 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
         """
 
     def order_cancel(self):
-        """报单操作请求
+        """报单撤销请求
 
         - 错误响应: OnRspOrderAction，OnErrRtnOrderAction
         - 正确响应：OnRtnOrder
         """
 
     def OnRspOrderInsert(
-        self, pInputOrder: tdapi.CThostFtdcInputOrderField,
+        self,
+        pInputOrder: tdapi.CThostFtdcInputOrderField,
         pRspInfo: tdapi.CThostFtdcRspInfoField,
         nRequestID: int,
         bIsLast: bool,
     ):
-        """报单录入请求响应 """
+        """报单录入请求响应"""
         if not self._check_rsp(pRspInfo, pInputOrder, bIsLast):
             return
 
