@@ -61,7 +61,7 @@ from openctp_ctp import tdapi, mdapi
 
 ## 代码示例
 
-本项目提供了一些 openctp-ctp 的基本使用方式及部分接口示例，具体如下。
+本项目提供了一些 openctp-ctp 的基本使用方式及部分接口示例，具体如下:
 
 - 行情 [demo](demo/mdapi.py)
     - 登录
@@ -114,6 +114,8 @@ from openctp_ctp import tdapi, mdapi
     - Linux x64
     - Mac x64
     - Mac arm64
+
+   支持 Mac 系统的版本有: 6.6.7/6.6.9/6.7.0
 
 ## 其他说明
 

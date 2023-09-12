@@ -3,6 +3,9 @@
     可以使用监控平台 http://121.37.80.177:50080/detail.html 查看前置服务是否正常
 """
 
+# 也可以按需配置其他的支持 ctp官方ctpapi库的柜台
+# 注意需要同时修改相应的 user/password/broker_id/authcode/appid 等信息
+
 # SimNow 提供的四个环境
 fronts = {
     "7x24": {
@@ -24,7 +27,7 @@ fronts = {
 }
 
 # 投资者ID / 密码
-user = "209025"
+user = "xxx"
 password = "xxx"
 
 # 以下为连接 SimNow 环境的固定值

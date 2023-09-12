@@ -358,8 +358,7 @@ class CTdSpiImpl(tdapi.CThostFtdcTraderSpi):
     def wait(self):
         # 阻塞 等待
         self._wait_queue.get()
-        print("-------------------------------- 按任意键退出 trader api demo ")
-        input()
+        input("-------------------------------- 按任意键退出 trader api demo ")
 
         self.release()
 
@@ -379,6 +378,9 @@ if __name__ == "__main__":
         time.sleep(1)
         if spi.is_login:
             break
+
+    # 代码中的请求参数编写时测试通过, 不保证以后一定成功。
+    # 需要测试哪个请求, 取消下面对应的注释, 并按需修改参请求参数即可。
 
     # spi.settlement_info_confirm()
     # spi.qry_instrument()

@@ -1,56 +1,105 @@
 """
     行情API demo
+
+    注意选择有效合约, 没有行情可能是过期合约或者不再交易时间内导致
 """
-import random
+import inspect
 
 from openctp_ctp import mdapi
 
+import config
+
 
 class CMdSpiImpl(mdapi.CThostFtdcMdSpi):
-    def __init__(self, md_api):
+    def __init__(self, front: str):
+        print("-------------------------------- 启动 mduser api demo ")
         super().__init__()
-        self.md_api = md_api
+        self._front = front
+
+        self._api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi(
+            "market"
+        )  # type: mdapi.CThostFtdcMdApi
+
+        print("CTP行情API版本号:", self._api.GetApiVersion())
+        print("行情前置:" + self._front)
+
+        # 注册行情前置
+        self._api.RegisterFront(self._front)
+        # 注册行情回调实例
+        self._api.RegisterSpi(self)
+        # 初始化行情实例
+        self._api.Init()
+        print("初始化成功")
 
     def OnFrontConnected(self):
-        """ 前置连接成功 """
-        print("OnFrontConnected")
+        """行情前置连接成功"""
+        print("行情前置连接成功")
+
+        # 登录请求, 行情登录不进行信息校验
+        print("登录请求")
         req = mdapi.CThostFtdcReqUserLoginField()
-        self.md_api.ReqUserLogin(req, 0)
+        self._api.ReqUserLogin(req, 0)
 
-    def OnRspUserLogin(self, pRspUserLogin: mdapi.CThostFtdcRspUserLoginField,
-                       pRspInfo: mdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
-        """ 登录应答 """
-        print(f"OnRspUserLogin: ErrorID={pRspInfo.ErrorID}, ErrorMsg={pRspInfo.ErrorMsg}")
-        if len(instruments) == 0:
-            print("No instruments.")
+    def OnRspUserLogin(
+        self,
+        pRspUserLogin: mdapi.CThostFtdcRspUserLoginField,
+        pRspInfo: mdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
+    ):
+        """登录响应"""
+        if pRspInfo and pRspInfo.ErrorID != 0:
+            print(f"登录失败: ErrorID={pRspInfo.ErrorID}, ErrorMsg={pRspInfo.ErrorMsg}")
             return
-        self.md_api.SubscribeMarketData([i.encode('utf-8') for i in instruments], len(instruments))
 
-    def OnRtnDepthMarketData(self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField):
-        """ 深度行情 """
-        print("InstrumentID:", pDepthMarketData.InstrumentID, " LastPrice:", pDepthMarketData.LastPrice,
-              " Volume:", pDepthMarketData.Volume, " PreSettlementPrice:", pDepthMarketData.PreSettlementPrice,
-              " PreClosePrice:", pDepthMarketData.PreClosePrice, " TradingDay:", pDepthMarketData.TradingDay)
+        print("登录成功")
 
-    def OnRspSubMarketData(self, pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField,
-                           pRspInfo: mdapi.CThostFtdcRspInfoField, nRequestID: int, bIsLast: bool):
-        """ 订阅行情应答 """
-        print("OnRspSubMarketData:ErrorID=", pRspInfo.ErrorID, " ErrorMsg=", pRspInfo.ErrorMsg)
+        if len(instruments) == 0:
+            return
+
+        # 订阅行情
+        print("订阅行情请求：", instruments)
+        self._api.SubscribeMarketData(
+            [i.encode("utf-8") for i in instruments], len(instruments)
+        )
+
+    def OnRtnDepthMarketData(
+        self, pDepthMarketData: mdapi.CThostFtdcDepthMarketDataField
+    ):
+        """深度行情通知"""
+        params = []
+        for name, value in inspect.getmembers(pDepthMarketData):
+            if name[0].isupper():
+                params.append(f"{name}={value}")
+        print("深度行情通知:", ",".join(params))
+
+    def OnRspSubMarketData(
+        self,
+        pSpecificInstrument: mdapi.CThostFtdcSpecificInstrumentField,
+        pRspInfo: mdapi.CThostFtdcRspInfoField,
+        nRequestID: int,
+        bIsLast: bool,
+    ):
+        """订阅行情响应"""
+        if pRspInfo and pRspInfo.ErrorID != 0:
+            print(
+                f"订阅行情失败:ErrorID={pRspInfo.ErrorID}, ErrorMsg={pRspInfo.ErrorMsg}",
+            )
+            return
+
+        print("订阅行情成功:", pSpecificInstrument.InstrumentID)
+
+    def wait(self):
+        # 阻塞 等待
+        input("-------------------------------- 按任意键退出 trader api demo ")
+
+        self._api.Release()
 
 
-if __name__ == '__main__':
-    md_front = random.choice(('tcp://180.168.146.187:10131',
-                              'tcp://180.168.146.187:10211',
-                              'tcp://180.168.146.187:10212',
-                              'tcp://180.168.146.187:10213'))
-    instruments = ('au2305', 'rb2305', 'TA305', 'i2305', 'IF2302')
+if __name__ == "__main__":
+    spi = CMdSpiImpl(config.fronts["电信2"]["md"])
 
-    md_api = mdapi.CThostFtdcMdApi.CreateFtdcMdApi("market")
-    print("ApiVersion: ", md_api.GetApiVersion())
-    md_spi = CMdSpiImpl(md_api)
-    md_api.RegisterFront(md_front)
-    md_api.RegisterSpi(md_spi)
-    md_api.Init()
+    # 注意选择有效合约, 没有行情可能是过期合约或者不再交易时间内导致
+    instruments = ("au2309", "IH2309")
 
-    print("press Enter key to exit ...")
-    input()
+    spi.wait()
