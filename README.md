@@ -187,7 +187,7 @@ from openctp_ctp import tdapi, mdapi
   sudo apt-get install -y locales
   sudo locale-gen zh_CN.GB18030
   
-  # Debian (11)
+  # Debian (11/12)
   sudo apt install locales-all
   sudo localedef -c -f GB18030 -i zh_CN zh_CN.GB18030
   
