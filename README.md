@@ -7,7 +7,7 @@ openctp提供了pip install和文件下载两种方法安装CTPAPI-Python库，�
 ### pip install方式
 
 ```bash
-pip install openctp-ctp==6.7.2.* -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host=pypi.tuna.tsinghua.edu.cn
+pip install openctp-ctp==6.3.15.* -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host=pypi.tuna.tsinghua.edu.cn
 ```
 
 ### 文件下载方式
@@ -18,10 +18,11 @@ pip install openctp-ctp==6.7.2.* -i https://pypi.tuna.tsinghua.edu.cn/simple --t
 CTPAPI-Python使用Swig技术开发，可以自己按以下步骤编译，需要安装swig等组件，详细攻略见：[CTPAPI-Python开发攻略](https://zhuanlan.zhihu.com/p/688672132)。
 
 ### Windows编译
+本仓库选用的是CTPAPI-6.3.15，如需编译其它版本，请下载相应的CTPAPI文件覆盖对应目录下的CTPAPI文件。
 
 #### Win32
 ```
-cd 6.3.15
+cd CTPAPI
 mkdir build
 cd build
 cmake ..
@@ -30,7 +31,7 @@ cmake --build . --config Release
 
 #### Win64
 ```
-cd 6.3.15
+cd CTPAPI
 mkdir build
 cd build
 cmake -A x64 ..
@@ -39,7 +40,7 @@ cmake --build . --config Release
 
 ### Linux编译
 ```
-cd 6.3.15
+cd CTPAPI
 mkdir build
 cd build
 cmake ..
