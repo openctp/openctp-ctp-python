@@ -46,3 +46,33 @@ cd build
 cmake ..
 make
 ```
+### 效果
+```
+[luojian@ecs-395321-0004 build]$ cmake ..
+-- The C compiler identification is GNU 9.3.1
+-- The CXX compiler identification is GNU 9.3.1
+-- Check for working C compiler: /opt/rh/devtoolset-9/root/usr/bin/cc
+-- Check for working C compiler: /opt/rh/devtoolset-9/root/usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working CXX compiler: /opt/rh/devtoolset-9/root/usr/bin/c++
+-- Check for working CXX compiler: /opt/rh/devtoolset-9/root/usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+generate swig wrap files ...
+/home/luojian/programming/github-ssh/openctp-ctp-python/CTPAPI/lin64/ThostFtdcTraderApi.h:30: Warning 514: Director base class CThostFtdcTraderSpi has no virtual destructor.
+/home/luojian/programming/github-ssh/openctp-ctp-python/CTPAPI/lin64/ThostFtdcMdApi.h:30: Warning 514: Director base class CThostFtdcMdSpi has no virtual destructor.
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/luojian/programming/github-ssh/openctp-ctp-python/CTPAPI/build
+[luojian@ecs-395321-0004 build]$ make
+Scanning dependencies of target _thostmduserapi
+[ 50%] Building CXX object CMakeFiles/_thostmduserapi.dir/thostmduserapi_wrap.cxx.o
+Linking CXX shared library _thostmduserapi.so
+[ 50%] Built target _thostmduserapi
+Scanning dependencies of target _thosttraderapi
+[100%] Building CXX object CMakeFiles/_thosttraderapi.dir/thosttraderapi_wrap.cxx.o
+Linking CXX shared library _thosttraderapi.so
+[100%] Built target _thosttraderapi
+[luojian@ecs-395321-0004 build]$
+```
