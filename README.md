@@ -44,5 +44,5 @@ cd CTPAPI
 mkdir build
 cd build
 cmake ..
-cmake --build . --config Release
+make
 ```
