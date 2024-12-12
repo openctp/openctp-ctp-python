@@ -17,8 +17,21 @@ pip install openctp-ctp==6.3.15.* -i https://pypi.tuna.tsinghua.edu.cn/simple --
 ## 自己编译
 CTPAPI-Python使用Swig技术开发，可以自己按以下步骤编译，需要安装swig等组件，详细攻略见：[CTPAPI-Python开发攻略](https://zhuanlan.zhihu.com/p/688672132)。
 
-### Windows编译
 本仓库选用的是CTPAPI-6.3.15，如需编译其它版本，请下载相应的CTPAPI文件覆盖对应目录下的CTPAPI文件。
+
+### 准备
+- 安装Swig、Python3、boost，boost库用到的是locale库，用来转换字符集。
+- 设置BOOST_INCLUDE、BOOST_LIB环境变量分别指向相应库的头文件及库目录，如E:\boost_1_73_0、E:\boost_1_73_0\stage\lib。
+- 设置PYTHON_INCLUDE、PYTHON_LIB环境变量分别指向相应库的头文件及库目录，如C:\Program Files\Python312\include、C:\Program Files\Python312\libs。
+
+### Windows编译
+编译成功后，需要将生成的_thosttraderapi.dll改名为_thosttraderapi.pyd，_thostmduserapi.dll改为_thostmduserapi.pyd。
+
+将生成的文件连同CTPAPI的dll（thosttraderapi.dll、thostmduserapi.dll）拷贝到你的程序运行目录下即可：
+- thosttraderapi.py
+- thostmduserapi.py
+- _thostmduserapi.pyd
+- _thosttraderapi.pyd
 
 #### Win32
 ```
@@ -39,6 +52,11 @@ cmake --build . --config Release
 ```
 
 ### Linux编译
+将生成的文件连同CTPAPI的so文件（thosttraderapi.so、thostmduserapi.so）拷贝到你的程序运行目录下即可：
+- thosttraderapi.py
+- thostmduserapi.py
+- _thostmduserapi.so
+- _thosttraderapi.so
 ```
 cd CTPAPI
 mkdir build
@@ -48,7 +66,7 @@ make
 ```
 ### 效果
 ```
-[luojian@ecs-395321-0004 build]$ cmake ..
+[krenx]$ cmake ..
 -- The C compiler identification is GNU 9.3.1
 -- The CXX compiler identification is GNU 9.3.1
 -- Check for working C compiler: /opt/rh/devtoolset-9/root/usr/bin/cc
@@ -60,12 +78,12 @@ make
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
 generate swig wrap files ...
-/home/luojian/programming/github-ssh/openctp-ctp-python/CTPAPI/lin64/ThostFtdcTraderApi.h:30: Warning 514: Director base class CThostFtdcTraderSpi has no virtual destructor.
-/home/luojian/programming/github-ssh/openctp-ctp-python/CTPAPI/lin64/ThostFtdcMdApi.h:30: Warning 514: Director base class CThostFtdcMdSpi has no virtual destructor.
+/home/krenx/programming/github-ssh/openctp-ctp-python/CTPAPI/lin64/ThostFtdcTraderApi.h:30: Warning 514: Director base class CThostFtdcTraderSpi has no virtual destructor.
+/home/krenx/programming/github-ssh/openctp-ctp-python/CTPAPI/lin64/ThostFtdcMdApi.h:30: Warning 514: Director base class CThostFtdcMdSpi has no virtual destructor.
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/luojian/programming/github-ssh/openctp-ctp-python/CTPAPI/build
-[luojian@ecs-395321-0004 build]$ make
+-- Build files have been written to: /home/krenx/programming/github-ssh/openctp-ctp-python/CTPAPI/build
+[krenx]$ make
 Scanning dependencies of target _thostmduserapi
 [ 50%] Building CXX object CMakeFiles/_thostmduserapi.dir/thostmduserapi_wrap.cxx.o
 Linking CXX shared library _thostmduserapi.so
@@ -74,5 +92,5 @@ Scanning dependencies of target _thosttraderapi
 [100%] Building CXX object CMakeFiles/_thosttraderapi.dir/thosttraderapi_wrap.cxx.o
 Linking CXX shared library _thosttraderapi.so
 [100%] Built target _thosttraderapi
-[luojian@ecs-395321-0004 build]$
+[krenx]$
 ```

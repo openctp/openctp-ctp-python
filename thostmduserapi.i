@@ -36,17 +36,10 @@
 %}
 
 %{
-#include "ThostFtdcMdApi.h"
-#include <codecvt>
-#include <locale>
-#include <vector>
+#include <iostream>
 #include <string>
-using namespace std;
-#ifdef _MSC_VER
-const static locale g_loc("zh-CN");
-#else    
-const static locale g_loc("zh_CN.GB18030");
-#endif
+#include <boost/locale.hpp>
+#include "ThostFtdcMdApi.h"
 %}
 
 %feature("doxygen:ignore:system", range="line");
@@ -64,24 +57,11 @@ const static locale g_loc("zh_CN.GB18030");
 
 %typemap(out) char[ANY], char[] {
     if ($1){
-        size_t l = strlen($1);
-        if (l == 0) {
+        if (!strlen($1)) {
             resultobj = SWIG_FromCharPtr("");
         } else {
-            const std::string &gbk($1);
-            std::vector<wchar_t> wstr(gbk.size());
-            wchar_t* wstrEnd = nullptr;
-            const char* gbEnd = nullptr;
-            mbstate_t state = {};
-            int res = use_facet<codecvt<wchar_t, char, mbstate_t>> (g_loc).in(state, gbk.data(), gbk.data() + gbk.size(), gbEnd, wstr.data(), wstr.data() + wstr.size(), wstrEnd);
-            if (codecvt_base::ok == res) {
-                wstring_convert<codecvt_utf8<wchar_t>> cutf8;
-                std::string result = cutf8.to_bytes(wstring(wstr.data(), wstrEnd));
-                resultobj = SWIG_FromCharPtrAndSize(result.c_str(), result.size());
-            } else {
-                std::string result;
-                resultobj = SWIG_FromCharPtrAndSize(result.c_str(), result.size());
-            }
+            const std::string utf8_str = std::move(boost::locale::conv::to_utf<char>($1, "GBK"));
+            resultobj = SWIG_FromCharPtrAndSize(utf8_str.c_str(),utf8_str.size());
         }
     }
 }

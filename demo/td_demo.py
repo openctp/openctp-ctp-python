@@ -630,7 +630,7 @@ class TdImpl(tdapi.CThostFtdcTraderSpi):
             exit(-1)
         if pSettlementInfo is not None:
             # print(f"OnRspQrySettlementInfo:TradingDay={pSettlementInfo.TradingDay},InvestorID={pSettlementInfo.InvestorID},CurrencyID={pSettlementInfo.CurrencyID},Content={pSettlementInfo.Content}")
-            print(pSettlementInfo.Content)
+            print(pSettlementInfo.Content.decode('gbk'))
         if bIsLast == True:
             semaphore.release()
 
