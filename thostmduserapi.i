@@ -58,10 +58,10 @@
 %typemap(out) char[ANY], char[] {
     if ($1){
         if (!strlen($1)) {
-            resultobj = SWIG_FromCharPtr("");
+            $result = SWIG_FromCharPtr("");
         } else {
             const std::string utf8_str = std::move(boost::locale::conv::to_utf<char>($1, "GBK"));
-            resultobj = SWIG_FromCharPtrAndSize(utf8_str.c_str(),utf8_str.size());
+            $result = SWIG_FromCharPtrAndSize(utf8_str.c_str(),utf8_str.size());
         }
     }
 }

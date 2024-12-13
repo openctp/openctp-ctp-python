@@ -20,7 +20,7 @@ CTPAPI-Python使用Swig技术开发，可以自己按以下步骤编译，需要
 本仓库选用的是CTPAPI-6.3.15，如需编译其它版本，请下载相应的CTPAPI文件覆盖对应目录下的CTPAPI文件。
 
 ### 准备
-- 安装VirtualStudio、Swig、Python3、boost，boost库用到的是locale库，用来转换字符集。
+- 安装VirtualStudio、Swig、Python3、boost、cmake，boost库用到的是locale库，用来转换字符集。
 - 设置BOOST_INCLUDE、BOOST_LIB环境变量分别指向相应库的头文件及库目录，如E:\boost_1_73_0、E:\boost_1_73_0\stage\lib。
 - 设置PYTHON_INCLUDE、PYTHON_LIB环境变量分别指向相应库的头文件及库目录，如C:\Program Files\Python312\include、C:\Program Files\Python312\libs。
 

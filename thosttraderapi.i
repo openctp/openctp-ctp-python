@@ -57,14 +57,14 @@
 
 %typemap(out) char[ANY], char[] {
     if ("$1_name" == "Content" && "$symname" == "CThostFtdcSettlementInfoField_Content_get") {
-        resultobj = PyBytes_FromString($1);
+        $result = PyBytes_FromString($1);
     } else {
         if ($1){
             if (!strlen($1)) {
-                resultobj = SWIG_FromCharPtr("");
+                $result = SWIG_FromCharPtr("");
             } else {
                 const std::string utf8_str = std::move(boost::locale::conv::to_utf<char>($1, "GBK"));
-                resultobj = SWIG_FromCharPtrAndSize(utf8_str.c_str(),utf8_str.size());
+                $result = SWIG_FromCharPtrAndSize(utf8_str.c_str(),utf8_str.size());
             }
         }
     }
