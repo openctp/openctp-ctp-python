@@ -92,3 +92,6 @@ Linking CXX shared library _thosttraderapi.so
 [100%] Built target _thosttraderapi
 [krenx]$
 ```
+### 技术交流
+QQ群：546977604
+微信群+v：openctp_helper
