@@ -7,8 +7,8 @@ import sys
 import time
 import os
 import threading
-# from openctp_ctp import tdapi # pip install mode
-import thosttraderapi as tdapi # manual mode
+from openctp_ctp import thosttraderapi as tdapi # pip install mode
+# import thosttraderapi as tdapi # local mode
 
 
 class TdImpl(tdapi.CThostFtdcTraderSpi):
