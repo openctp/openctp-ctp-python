@@ -12,7 +12,7 @@ pip install openctp-ctp==6.3.15.* -i https://pypi.tuna.tsinghua.edu.cn/simple --
 
 ### 文件下载方式
 
-[CTPAPI-Python接口下载](http://openctp.cn/download.html)
+[CTPAPI-Python接口下载](http://openctp.cn/CTPAPI-Python.html)
 
 ## 自己编译
 CTPAPI-Python使用Swig技术开发，可以自己按以下步骤编译，需要安装swig等组件，详细攻略见：[CTPAPI-Python开发攻略](https://zhuanlan.zhihu.com/p/688672132)。
